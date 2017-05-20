@@ -25,7 +25,7 @@
 			doNext: function() {
 				this.getRef(this.target).$emit('next');
 			},
-			getRef: require('../../methods/get-ref.js')
+			getRef: require('./get-ref.js')
 		},
 		mounted: function() {
 			var vm = this;
