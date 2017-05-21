@@ -113,8 +113,8 @@
 			} 
 		},
 		components: {
-			'w-next': require('./w-next.vue'),
-			'w-prev': require('./w-prev.vue'),
+			'w-next': require('./wizard/w-next.vue'),
+			'w-prev': require('./wizard/w-prev.vue'),
 		},
 		methods:{
 			buildNav: function() {
