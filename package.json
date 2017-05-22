@@ -1,6 +1,6 @@
 {
   "name": "z-ui",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Vue User Interfaces",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "zoom-vue-session": "",
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "0.0.5-beta.2",
-	"select2": ""
+    "select2": ""
   },
   "repository": {
     "type": "git",
