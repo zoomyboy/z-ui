@@ -13,6 +13,7 @@ export var form = {
 		Vue.component('vf-checkboxes', require('./form/fields/checkboxes.vue'));
 		Vue.component('vf-submit', require('./form/fields/submit.vue'));
 		Vue.component('vf-hidden', require('./form/fields/hidden.vue'));
+		Vue.component('vf-select', require('./form/fields/select.vue'));
 	}
 };
 export var statusBar = {

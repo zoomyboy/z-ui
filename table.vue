@@ -13,7 +13,7 @@
 		<tbody>
 			<tr v-for="row in data">
 				<td v-for="heading in parsedHeadings">
-					{{ row[heading.data] }}
+					{{ getData(row, heading.data) }}
 				</td>
 				<td v-if="!noactions" class="action-cell">
 					<v-link :href="'/'+controller+'/'+row.id+'/edit'" icon="pencil" size="xs"></v-link>
@@ -84,6 +84,7 @@
 			}	
 		},
 		methods: {
+			getData: require('./table/m_get-data.js').default
 		},
 		mounted: function() {
 			var vm = this;
