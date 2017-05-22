@@ -32,3 +32,9 @@ export var link = {
 		Vue.component('v-link', require('./link.vue'));
 	}
 };
+export var heading = {
+	install: function(Vue, options) {
+		Vue.component('app-heading', require('./heading/app-heading.vue'));
+		Vue.component('heading', require('./heading.vue'));
+	}
+};
