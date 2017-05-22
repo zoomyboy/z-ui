@@ -25,7 +25,7 @@
 			doPrev: function() {
 				this.getRef(this.target).$emit('prev');
 			},
-			getRef: require('./get-ref.js')
+			getRef: require('../methods/get-ref.js')
 		},
 		mounted: function() {
 			var vm = this;
