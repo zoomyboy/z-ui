@@ -146,7 +146,6 @@
 					select.trigger('change');
 
 					select.on('select2:select', function() {
-console.log('PP');
 						vm.curValue = $(this).val();
 					});
 					select.on('select2:unselect', function() {
