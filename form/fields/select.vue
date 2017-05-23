@@ -93,7 +93,12 @@
 			},
 			url: {
 				type: String,
-				required: true
+				required: false,
+				default: ''
+			},
+			options: {
+				type: Array,
+				default: function() {return [];}
 			},
 			placeholder: {
 				type: String,
@@ -108,6 +113,41 @@
 			getValue: function() {
 				return this.curValue;
 			},
+			setOptions(select) {
+				var vm = this;
+
+				if (!vm.allowNull) {
+					select.select2({placeholder: vm.placeholder});
+					select.append(`<option></option>`);
+				}
+				
+				if (vm.url == '') {
+					//Options is set - get options from options prop
+					vm.options.forEach(function(option) {
+						select.append(`<option value="${option.id}">${option.title}</option>`);
+					});
+
+					select.trigger('change');
+
+					select.on('select2:select', function() {
+						vm.curValue = $(this).val();
+					});
+
+					return;
+				}
+
+				//Url is set - Get options from that url
+				axios.get(vm.url).then(function(ret) {
+					ret.data.forEach(function(item) {
+						select.append(`<option value="${item.id}">${item.title}</option>`);
+					});
+					select.trigger('change');
+
+					select.on('select2:select', function() {
+						vm.curValue = $(this).val();
+					});
+				});
+			}
 		},
 		watch: {
 			value: function(newVal) {
@@ -116,13 +156,15 @@
 				} else {
 					this.curValue = newVal;
 				}
+
+				this.$events.fire('vf-select-change', this.name, newVal);
 			},
 			curValue: function(newVal) {
 				var vm = this;
-				if (typeof newVal == 'number') {
-					var $select = $(vm.$refs.selectField);
-					$select.val(newVal).trigger('change');
-				}
+
+				var $select = $(vm.$refs.selectField);
+				$select.val(newVal).trigger('change');
+				this.$events.fire('vf-select-change', this.name, newVal);
 			}
 		},
 		data: function() {
@@ -155,20 +197,7 @@
 			}			
 			$select.select2(options);
 
-			axios.get(vm.url).then(function(ret) {
-				if (!vm.allowNull) {
-					$select.select2({placeholder: vm.placeholder});
-					$select.append(`<option></option>`);
-				}
-				ret.data.forEach(function(item) {
-					$select.append(`<option value="${item.id}">${item.title}</option>`);
-				});
-				$select.trigger('change');
-
-				$select.on('select2:select', function() {
-					vm.curValue = $(this).val();
-				});
-			});
+			this.setOptions($select);
 
 			this.$on('parseError', function(error) {
 				vm.error = error;
