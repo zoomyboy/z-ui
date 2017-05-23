@@ -1,6 +1,6 @@
 {
   "name": "z-ui",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Vue User Interfaces",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "0.0.5-beta.2",
     "select2": "",
-	"axios": ""
+    "axios": ""
   },
   "repository": {
     "type": "git",
