@@ -13,7 +13,8 @@
     "zoom-vue-session": "",
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "0.0.5-beta.2",
-    "select2": ""
+    "select2": "",
+	"axios": ""
   },
   "repository": {
     "type": "git",

@@ -17,11 +17,15 @@
 		methods: {
 			getValue: function() {
 				return this.curValue;
-			}
+			},
+			setValue: function(value) {
+				this.curValue = value;
+			},
+			getForm: require('../methods/get-form.js')
 		},
 		watch: {
 			value: function(newVal) {
-				this.curValue = newVal;
+				this.setValue(newVal);
 			}
 		},
 		data: function() {

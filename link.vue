@@ -1,5 +1,5 @@
 <template>
-	<router-link :to="href" :class="['btn', 'btn-'+this.type, 'btn-'+this.size]"><span :class="['fa', 'fa-'+this.icon]"></span></router-link>
+	<router-link :to="realHref" :class="['btn', 'btn-'+this.type, 'btn-'+this.size]"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
 </template>
 
 <style>
@@ -20,7 +20,6 @@
 				default: 'sm'
 			},
 			href: {
-				required: true,
 				type: String,
 				default: ''
 			},
@@ -28,6 +27,35 @@
 				required: false,
 				type: String,
 				default: ''
+			},
+			route: {
+				type: String,
+				default: ''
+			},
+			add: {
+				type: Boolean,
+				default: false
+			}
+		},
+		computed: {
+			realHref: function() {
+				if (this.route) {
+					return {name: this.route};
+				} else {
+					return this.href;
+				}
+			},
+			realLabel: function() {
+				if (this.add) {
+					return 'Hinzufügen';
+				}
+			},
+			realIcon: function() {
+				if (this.add) {
+					return 'plus';
+				}
+
+				return this.icon;
 			}
 		}
 	};

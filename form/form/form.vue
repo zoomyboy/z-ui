@@ -55,16 +55,19 @@
 				default: '',
 				required: false
 			},
-		},
-
-		created: function() {
+			url: {
+				required: false,
+				type: String,
+				default: ''
+			}
 		},
 		data: function() {
 			return {
 				globalOptions: window.globalFormOptions,
 				isForm: true,
 				sending:false,
-				methods: {'delete': 'post', 'post': 'post', 'get': 'get', 'patch': 'post'}
+				methods: {'delete': 'post', 'post': 'post', 'get': 'get', 'patch': 'post'},
+				model: false
 			}
 		},
 		computed: {
@@ -86,7 +89,12 @@
 			getData: require('./m_get-data.js').default,
 			getField: require('./m_get-field.js').default,
 			getTable: require('./m_get-table.js').default,
-			submit: require('../methods/submit.js').default
+			submit: require('../methods/submit.js').default,
+			getModel: require('./m_get-model.js').default,
+			requireValue: require('./m_require-value.js').default
+		},
+		created: function() {
+			this.getModel(this);
 		}
 	}
 </script>

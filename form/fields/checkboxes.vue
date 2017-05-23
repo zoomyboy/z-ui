@@ -85,6 +85,15 @@
 			getValue: function() {
 				return this.curValue;
 			},
+			setValue: function(newVal) {
+				this.curValue = newVal.map(function(item) {
+					if (typeof item == 'object') {
+						return item.id;
+					}
+
+					return item;
+				});
+			},
 			toggle: function(ind) {
 				var vm = this;
 				var item = this.items[ind];
@@ -102,17 +111,12 @@
 				return this.curValue.find(function(c) {
 					return c == item.id;
 				}) != undefined;
-			}
+			},
+			getForm: require('../methods/get-form.js')
 		},
 		watch: {
 			value: function(newVal) {
-				this.curValue = newVal.map(function(item) {
-					if (typeof item == 'object') {
-						return item.id;
-					}
-
-					return item;
-				});
+				this.setValue(newVal);
 			}
 		},
 		data: function() {

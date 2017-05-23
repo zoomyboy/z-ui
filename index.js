@@ -30,6 +30,7 @@ export var table = {
 export var link = {
 	install: function(Vue, options) {
 		Vue.component('v-link', require('./link.vue'));
+		Vue.component('button-bar', require('./button-bar.vue'));
 	}
 };
 export var heading = {

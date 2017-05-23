@@ -138,6 +138,8 @@
 						vm.curValue = null;
 					});
 
+					vm.listen();
+
 					return;
 				}
 
@@ -154,11 +156,11 @@
 					select.on('select2:unselect', function() {
 						vm.curValue = null;
 					});
+
+					vm.listen();
 				});
-			}
-		},
-		watch: {
-			value: function(newVal) {
+			},
+			setValue: function(newVal) {
 				if (typeof newVal == 'object') {
 					this.curValue = newVal.id;
 				} else {
@@ -166,6 +168,22 @@
 				}
 
 				this.$events.fire('vf-select-change', this.name, newVal);
+			},
+			listen: function() {
+				var vm = this;
+
+				this.getForm().requireValue(this.name);
+				this.$events.listen('model-loaded', function(form) {
+					if (form == vm.getForm()) {
+						vm.getForm().requireValue(vm.name);
+					}
+				}); 
+			},
+			getForm: require('../methods/get-form.js')
+		},
+		watch: {
+			value: function(newVal) {
+				this.setValue(newVal);
 			},
 			curValue: function(newVal) {
 				var vm = this;
@@ -214,6 +232,7 @@
 			vm.$events.listen('cleanFormErrors', function(error) {
 				vm.error = false;
 			});
+
 		}
 	};
 </script>

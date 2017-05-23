@@ -23,11 +23,15 @@
 		methods: {
 			getValue: function() {
 				return this.curValue;
-			}
+			},
+			setValue: function(newVal) {
+				this.curValue = newVal;
+			},
+			getForm: require('../methods/get-form.js')
 		},
 		watch: {
 			value: function(newVal) {
-				this.curValue = newVal;
+				this.setValue(newVal);
 			}
 		},
 		data: function() {
@@ -38,7 +42,14 @@
 			}
 		},
 		mounted: function() {
+			var vm = this;
 			this.curValue = this.value;
+
+			this.$events.listen('model-loaded', function(form) {
+				if (form == vm.getForm()) {
+					vm.getForm().requireValue(vm.name);
+				}
+			});
 
 			var vm = this;
 
