@@ -131,8 +131,11 @@
 
 					select.trigger('change');
 
-					select.on('select2:change', function() {
+					select.on('select2:select', function() {
 						vm.curValue = $(this).val();
+					});
+					select.on('select2:unselect', function() {
+						vm.curValue = null;
 					});
 
 					return;
