@@ -1,6 +1,6 @@
 {
   "name": "z-ui",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Vue User Interfaces",
   "main": "index.js",
   "scripts": {
