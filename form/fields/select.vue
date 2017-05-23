@@ -104,7 +104,7 @@
 				type: String,
 				default: ''
 			},
-			allowNull: {
+			allownull: {
 				default: false,
 				type: Boolean
 			}
@@ -116,10 +116,12 @@
 			setOptions(select) {
 				var vm = this;
 
-				if (!vm.allowNull) {
-					select.select2({placeholder: vm.placeholder});
-					select.append(`<option></option>`);
+				if (vm.placeholder) {
+					select.select2({placeholder: vm.placeholder, allowClear: vm.allownull});
+				} else {
+					select.select2({placeholder: '---', allowClear: vm.allownull});
 				}
+				select.append(`<option></option>`);
 				
 				if (vm.url == '') {
 					//Options is set - get options from options prop
@@ -129,7 +131,7 @@
 
 					select.trigger('change');
 
-					select.on('select2:select', function() {
+					select.on('select2:change', function() {
 						vm.curValue = $(this).val();
 					});
 
@@ -144,7 +146,11 @@
 					select.trigger('change');
 
 					select.on('select2:select', function() {
+console.log('PP');
 						vm.curValue = $(this).val();
+					});
+					select.on('select2:unselect', function() {
+						vm.curValue = null;
 					});
 				});
 			}
