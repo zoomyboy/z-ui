@@ -29,10 +29,12 @@
 			border: #666666 solid 1px;
 			&:hover {
 				border: #FE881D solid 1px;
-    			box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(254, 136, 29, 0.6);
+				box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(254, 136, 29, 0.6);
 			}
 			&.active {
 				background-color: #FE881D;
+				line-height: 0;
+				padding: 4px;
 			}
 			&.active:hover {
 				border-color: #FE881D;
