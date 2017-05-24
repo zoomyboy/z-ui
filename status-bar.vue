@@ -36,6 +36,9 @@
 			container: {
 				default: false,
 				type: Boolean
+			},
+			id: {
+				default: undefined
 			}
 		},
 		methods: {
@@ -83,20 +86,25 @@
 		},
 		mounted: function() {
 			var vm = this;
-			vm.$events.listen('messageDanger', function(messages) {
+			vm.$events.listen('messageDanger', function(messages, id) {
+				if (vm.id != id) {return;}
 				vm._setMessages(messages, 'danger');
 			});
 
-			vm.$events.listen('messageSuccess', function(messages) {
+			vm.$events.listen('messageSuccess', function(messages, id) {
+				if (vm.id != id) {return;}
 				vm._setMessages(messages, 'success');
 			});
-			vm.$events.listen('messageWarning', function(messages) {
+			vm.$events.listen('messageWarning', function(messages, id) {
+				if (vm.id != id) {return;}
 				vm._setMessages(messages, 'warning');
 			});
-			vm.$events.listen('messageInfo', function(messages) {
+			vm.$events.listen('messageInfo', function(messages, id) {
+				if (vm.id != id) {return;}
 				vm._setMessages(messages, 'info');
 			});
-			vm.$events.listen('messageClear', function(messages) {
+			vm.$events.listen('messageClear', function(messages, id) {
+				if (vm.id != id) {return;}
 				vm.clear();
 			});
 		}
