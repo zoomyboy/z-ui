@@ -59,7 +59,11 @@
 				required: false,
 				type: String,
 				default: ''
-			}
+			},
+			statusbar: {
+				type: String,
+				default: undefined
+			},
 		},
 		data: function() {
 			return {

@@ -26,12 +26,12 @@ export default {
 
 function submit(vm, data) {
 	vm.sending = true;
-	vm.$events.fire('messageInfo', vm.opts.texts.sending);
+	vm.$events.fire('messageInfo', vm.opts.texts.sending, vm.statusbar);
 	vm.$events.fire('cleanFormErrors');
 
 	var method = vm.realMethod.toLowerCase();
 	axios[method](vm.action,data).then(function(ret){
-		vm.$events.fire('messageClear');
+		vm.$events.fire('messageClear', vm.statusbar);
 
 		if (vm.redirect.length > 0) {
 			vm.$session.flash(vm.$props.msg);
@@ -40,9 +40,8 @@ function submit(vm, data) {
 		}
 
 		if (vm.$props.msg != '') {
-			vm.$events.fire('messageSuccess', vm.$props.msg);
+			vm.$events.fire('messageSuccess', vm.$props.msg, vm.statusbar);
 		}
-
 
 		var table = vm.getTable();
 		if (table) {
@@ -55,13 +54,13 @@ function submit(vm, data) {
 		console.log(error);
 		vm.$events.fire('messageClear');
 		if (error.response.status == 404) {
-			vm.$events.fire('messageDanger', 'Die angegebene Resource wurde leider nicht gefunden.');
+			vm.$events.fire('messageDanger', 'Die angegebene Resource wurde leider nicht gefunden.', vm.statusbar);
 		}
 		if (error.response.status == 500) {
-			vm.$events.fire('messageDanger', `<b>E500: Ein Fehler ist aufgetreten:</b><br>${error.response.data.message}<br>in file ${error.response.data.file}<br>on line ${error.response.data.line}`);
+			vm.$events.fire('messageDanger', `<b>E500: Ein Fehler ist aufgetreten:</b><br>${error.response.data.message}<br>in file ${error.response.data.file}<br>on line ${error.response.data.line}`, vm.statusbar);
 		}
 		if (error.response.status == 422) {
-			vm.$events.fire('messageDanger', `Ein Fehler ist aufgetreten. Bitte prüfen Sie Ihre Eingaben.`);
+			vm.$events.fire('messageDanger', `Ein Fehler ist aufgetreten. Bitte prüfen Sie Ihre Eingaben.`, vm.statusbar);
 			Object.keys(error.response.data).forEach((k) => {
 				var field = vm.getField(k);
 				if (field) {
