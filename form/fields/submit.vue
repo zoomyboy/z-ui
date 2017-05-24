@@ -1,7 +1,5 @@
 <template>
-	<div class="vf-field vf-field-submit form-group">
-		<button type="submit" class="btn btn-primary btn-submit" @click="setValues()"><slot>{{ label }}</slot></button>
-	</div>
+	<button type="submit" class="btn btn-primary btn-submit" @click="setValues()"><slot>{{ label }}</slot></button>
 </template>
 
 <script>
