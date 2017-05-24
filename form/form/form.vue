@@ -7,7 +7,7 @@
 </template>
 
 <style lang="sass">
-	@import '~sweetalert2/src/sweetalert2.scss'
+	@import '~sweetalert2/src/sweetalert2.scss';
 </style>
 
 <script>
