@@ -1,18 +1,35 @@
 <template>
 	<div class="vf-field vf-field-submit form-group">
-		<button type="submit" class="btn btn-primary btn-submit"><slot>{{ label }}</slot></button>
+		<button type="submit" class="btn btn-primary btn-submit" @click="setValues()"><slot>{{ label }}</slot></button>
 	</div>
 </template>
 
 <script>
 	export default {
-		computed: {
-			label: function() {
-				return this.getForm().option('submitLabel');
+		props: {
+			confirm: {
+				required: false,
+				type: String,
+				default: ''
 			}
 		},
 		methods: {
 			getForm: require('../methods/get-form.js'),
+			setValues: function() {
+				this.setConfirm();
+			},
+			setConfirm: function() {
+				if (this.confirm) {
+					this.getForm().setConfirm(this.confirm);
+				} else {
+					this.getForm().resetConfirm();
+				}
+			}
+		},
+		computed: {
+			label: function() {
+				return this.getForm().option('submitLabel');
+			}
 		}
 	};
 </script>

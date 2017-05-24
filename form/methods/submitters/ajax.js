@@ -16,11 +16,33 @@ export default {
 				cancelButtonClass: 'btn btn-danger',
 				buttonsStyling: false
 			}).then(function () {
-				submit(vm, data);
+				askSubmitButton(vm, data);
 			}, function (dismiss) { });
 		} else {
-			submit(vm, data);
+			askSubmitButton(vm, data);
 		}
+	}
+}
+
+function askSubmitButton(vm, data) {
+	if (vm.submitConfirm != false) {
+		swal({
+			title: vm.submitConfirm.v,
+			text: "",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Ja, bitte!',
+			cancelButtonText: 'Nein danke!',
+			confirmButtonClass: 'btn btn-success',
+			cancelButtonClass: 'btn btn-danger',
+			buttonsStyling: false
+		}).then(function () {
+			submit(vm, data);
+		}, function (dismiss) { });
+	} else {
+		submit(vm, data);
 	}
 }
 

@@ -71,7 +71,8 @@
 				isForm: true,
 				sending:false,
 				methods: {'delete': 'post', 'post': 'post', 'get': 'get', 'patch': 'post'},
-				model: false
+				model: false,
+				submitConfirm: false,
 			}
 		},
 		computed: {
@@ -95,7 +96,13 @@
 			getTable: require('./m_get-table.js').default,
 			submit: require('../methods/submit.js').default,
 			getModel: require('./m_get-model.js').default,
-			requireValue: require('./m_require-value.js').default
+			requireValue: require('./m_require-value.js').default,
+			setConfirm: function(value) {
+				this.submitConfirm = {v: value};
+			},
+			resetConfirm: function() {
+				this.submitConfirm = false;
+			}
 		},
 		created: function() {
 			this.getModel(this);
