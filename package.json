@@ -14,7 +14,8 @@
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "0.0.5-beta.2",
     "select2": "",
-    "axios": ""
+    "axios": "",
+    "query-string": ""
   },
   "repository": {
     "type": "git",

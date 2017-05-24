@@ -13,6 +13,7 @@
 <script>
 	import defaultOptions from '../options/options'
 	import merge from 'merge'
+	import querystring from 'query-string';
 
 	window.globalFormOptions = (window.globalFormOptions == undefined) ? {} : window.globalFormOptions;
 
@@ -60,6 +61,10 @@
 				type: String,
 				default: ''
 			},
+			asstring: {
+				type: Boolean,
+				default: false
+			},
 			statusbar: {
 				type: String,
 				default: undefined
@@ -102,6 +107,9 @@
 			},
 			resetConfirm: function() {
 				this.submitConfirm = false;
+			},
+			modifyData: function(data) {
+				return (this.asstring) ? querystring.stringify(data) : data;
 			}
 		},
 		created: function() {

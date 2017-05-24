@@ -52,7 +52,7 @@ function submit(vm, data) {
 	vm.$events.fire('cleanFormErrors');
 
 	var method = vm.realMethod.toLowerCase();
-	axios[method](vm.action,data).then(function(ret){
+	axios[method](vm.action, vm.modifyData(data)).then(function(ret){
 		vm.$events.fire('messageClear', vm.statusbar);
 
 		if (vm.redirect.length > 0) {
