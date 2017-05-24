@@ -4,7 +4,8 @@ module.exports = function() {
 	  submitLabel: 'Send',
 	  texts: {
 		  sending: 'Sending form...'
-	  }
+	  },
+	  fieldClass: 'form-control'
   };
 
   return options;

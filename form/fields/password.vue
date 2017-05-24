@@ -1,6 +1,6 @@
 <template>
 	<div class="vf-field vf-field-password form-group">
-		<input type="password" class="form-control" v-model="curValue" :placeholder="label" @keyup="error= false">
+		<input type="password" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label">
 		<span class="label label-danger" v-if="error !== false">{{ error }}</span>
 	</div>
 </template>

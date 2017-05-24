@@ -1,6 +1,6 @@
 <template>
 	<div class="vf-field vf-field-text form-group">
-		<input type="text" class="form-control" v-model="curValue" :placeholder="label">
+		<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label">
 		<span class="label label-danger" v-if="error !== false">{{ error }}</span>
 	</div>
 </template>
