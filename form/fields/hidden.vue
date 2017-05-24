@@ -1,8 +1,14 @@
 <template>
-	<div class="vf-field vf-field-text form-group">
+	<div class="vf-field vf-field-hidden form-group">
 		<input type="hidden" v-model="curValue">
 	</div>
 </template>
+
+<style>
+	.vf-field.vf-field-hidden {
+		display: none;
+	}
+</style>
 
 <script>
 	export default {
