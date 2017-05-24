@@ -103,7 +103,7 @@
 				if (vm.id != id) {return;}
 				vm._setMessages(messages, 'info');
 			});
-			vm.$events.listen('messageClear', function(messages, id) {
+			vm.$events.listen('messageClear', function(id) {
 				if (vm.id != id) {return;}
 				vm.clear();
 			});
