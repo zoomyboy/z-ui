@@ -16,9 +16,11 @@
 					{{ getData(row, heading.data) }}
 				</td>
 				<td v-if="!noactions" class="action-cell">
-					<v-link :href="'/'+controller+'/'+row.id+'/edit'" icon="pencil" size="xs"></v-link>
 					<vf-form :msg="deletemsg" :action="'/api/'+controller+'/'+row.id" method="delete" ajax confirm="Wollen Sie diesen Eintrag wirklick löschen?">
-						<vf-submit  icon="trash" size="xs"><span class="fa fa-trash"></span></vf-submit>
+						<div class="btn-group table-btn-group">
+							<v-link :href="'/'+controller+'/'+row.id+'/edit'" icon="pencil"></v-link>
+							<vf-submit  icon="trash" size="xs"><span class="fa fa-trash"></span></vf-submit>
+						</div>
 					</vf-form>
 				</td>
 			</tr>

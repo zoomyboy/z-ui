@@ -14,7 +14,7 @@
 
 <style lang="less">
 	@import "~select2/dist/css/select2.min.css";
-	@import "../../ui.less";
+	@import "~uiStyle";
 
 	.vf-field-select-wrapper {
 		margin-bottom: 15px;
@@ -39,39 +39,40 @@
 		width: 100% !important;
 	}
 	span.selection > .select2-selection.select2-selection--single {
-		border-radius: 0;
-		border-color: @borders2;
-		height: 40px;
-		padding: 10px 15px;
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+		border-radius: 4px;
+		border-color: @field-border-color;
+		height: @field-height;
+		padding: @field-padding;
 		.select2-selection__arrow {
-			height: 40px;
+			height: @field-height;
 			position: absolute;
 			top: 0px;
 			right: 0px;
 			width: 20px;
 		}
 		.select2-selection__rendered {
-			line-height: 20px;
+			line-height: @field-height - (@field-padding-v + @field-border-strength) * 2;
 			padding: 0;
 		}
 	}
 	span.select2-dropdown {
-		border-color: #FE881D;
+		border-color: @field-focus;
 		outline: 0;
-		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(254, 136, 29, 0.6);
+		box-shadow: inset 0 0px 1px darken(#000000, 5%), 0 0 8px fade(@field-focus, 40%);
 	}
 
 	span.select2-container--focus, span.select2-container--open {
 		span.selection > .select2-selection.select2-selection--single  {
-			border-color: #FE881D;
+			border-color: @field-focus;
 			outline: 0;
-			box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(254, 136, 29, 0.6);
+			box-shadow: inset 0 0px 1px darken(#000000, 5%), 0 0 8px fade(@field-focus, 40%);
 		}
 	}
 	
 	.select2-container--default .select2-results__option.select2-results__option--highlighted {
-		background-color: @bg-very-bright;
-		color: @link-bright;
+		background-color: @select-dropdown-hover;
+		color: @select-dropdown-color;
 	}
 </style>
 

@@ -17,7 +17,7 @@
 			size: {
 				required: false,
 				type: String,
-				default: 'sm'
+				default: 'size-default'
 			},
 			href: {
 				type: String,

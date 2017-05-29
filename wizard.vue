@@ -26,7 +26,7 @@
 </template>
 
 <style lang="less">
-	@import "./ui.less";
+	@import "~uiStyle";
 	
 	.cp-wizard {
 		ul.wizard-nav {

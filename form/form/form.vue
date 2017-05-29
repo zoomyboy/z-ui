@@ -14,6 +14,7 @@
 	import defaultOptions from '../options/options'
 	import merge from 'merge'
 	import querystring from 'query-string';
+	require('style-loader!css-loader!less-loader!bootstrap/less/bootstrap.less')
 
 	window.globalFormOptions = (window.globalFormOptions == undefined) ? {} : window.globalFormOptions;
 

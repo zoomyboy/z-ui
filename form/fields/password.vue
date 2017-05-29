@@ -5,6 +5,16 @@
 	</div>
 </template>
 
+<style lang="less">
+	@import '~uiStyle';
+	.vf-field-password {
+		input {
+			.field-focus(@field-focus);
+			height: @field-height;
+		}
+	}
+</style>
+
 <script>
 	export default {
 		props: {

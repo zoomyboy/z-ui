@@ -5,6 +5,16 @@
 	</div>
 </template>
 
+<style lang="less">
+	@import '~uiStyle';
+	.vf-field-text {
+		input {
+			.field-focus(@field-focus);
+			height: @field-height;
+		}
+	}
+</style>
+
 <script>
 	export default {
 		props: {
