@@ -36,6 +36,10 @@
 		.vf-field {
 			display: inline;
 		}
+		.table-btn-group {
+			white-space: nowrap;
+			font-size: 0;
+		}
 	}
 </style>
 

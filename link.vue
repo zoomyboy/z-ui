@@ -8,6 +8,10 @@
 
 	.btn-v-link {
 		.button-variant(@button-color, @button-bg, @button-border);
+		.btn-group > & {
+			display: inline-block;
+			float: none;
+		}
 	}
 </style>
 
