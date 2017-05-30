@@ -12,9 +12,7 @@
 		</thead>
 		<tbody>
 			<tr v-for="row in data">
-				<td v-for="heading in parsedHeadings">
-					{{ getData(row, heading.data) }}
-				</td>
+				<td v-for="heading in parsedHeadings" v-html="parse(getData(row, heading.data), heading)"></td>
 				<td v-if="!noactions" class="action-cell">
 					<vf-form :msg="deletemsg" :action="'/api/'+controller+'/'+row.id" method="delete" ajax confirm="Wollen Sie diesen Eintrag wirklick löschen?">
 						<div class="btn-group table-btn-group">
@@ -44,6 +42,10 @@
 </style>
 
 <script>
+	var defaultOptions = require('./table/options/options.js').default;
+	window.globalTableOptions = (window.globalTableOptions == undefined) ? {} : window.globalTableOptions;
+	var merge = require('merge');
+
 	module.exports = {
 		data: function() {
 			return {
@@ -71,6 +73,10 @@
 				required: false,
 				type: String,
 				default: ''
+			},
+			options: {
+				default: function() {return {};},
+				type: Object
 			}
 		},
 		computed: {
@@ -87,10 +93,22 @@
 				if (typeof this.headings == 'object') {
 					return this.headings;
 				}
-			}	
+			},
+			opts: function() {	
+ 				let options = merge.recursive(defaultOptions(), window.globalTableOptions);
+ 				return merge.recursive(options, this.options);
+			},
 		},
 		methods: {
-			getData: require('./table/m_get-data.js').default
+			getData: require('./table/m_get-data.js').default,
+			getTable: function() {
+				var getTable = require('./table/m_get-table.js');
+				return getTable(this);
+			},
+			parse: function(value, heading) {
+				var parse = require('./table/m_parse.js').default;
+				return parse(value, heading, this);
+			}
 		},
 		mounted: function() {
 			var vm = this;

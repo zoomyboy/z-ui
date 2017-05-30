@@ -40,6 +40,8 @@
 			}
 			&.active {
 				background-color: @checkbox-bg;
+				line-height: 0;
+				padding: 3px;
 			}
 			&.active:hover {
 				border-color: @checkbox-bg;

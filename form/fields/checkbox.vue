@@ -13,6 +13,8 @@
 </template>
 
 <style lang="less">
+	@import '~uiStyle';
+
 	.vf-field-checkbox-wrapper {
 		margin-bottom: 15px;
 	}
@@ -26,21 +28,21 @@
 			width: 22px;
 			height: 22px;
 			cursor: pointer;
-			border: #666666 solid 1px;
+			border: @checkbox-border;
 			&:hover {
-				border: #FE881D solid 1px;
-				box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(254, 136, 29, 0.6);
+				border: @checkbox-border-hover;
+				box-shadow: inset 0 0px 1px darken(#000000, 5%), 0 0 8px fade(@checkbox-bg, 40%);
 			}
 			&.active {
-				background-color: #FE881D;
+				background-color: @checkbox-bg;
 				line-height: 0;
-				padding: 4px;
+				padding: 3px;
 			}
 			&.active:hover {
-				border-color: #FE881D;
+				border-color: @checkbox-bg;
 			}
 			span {
-				color: white;
+				color: @checkbox-color;
 			}
 		}
 		input {
