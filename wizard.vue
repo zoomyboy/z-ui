@@ -36,7 +36,7 @@
 			.nav-item {
 				margin-left: 0;
 				&.active .wizard-icon {
-					background: @orange;
+					background: @primary;
 				}
 				&.active a {
 					background: none;
@@ -76,7 +76,7 @@
 				&:hover {
 					background: none;
 					.wizard-icon {
-						background: @orange;
+						background: @primary;
 					}
 				}
 			}

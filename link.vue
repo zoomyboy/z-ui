@@ -1,9 +1,14 @@
 <template>
-	<router-link :to="realHref" :class="['btn', 'btn-'+this.type, 'btn-'+this.size]"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
+	<router-link :to="realHref" :class="['btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-v-link']"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
 </template>
 
-<style>
+<style lang="less">
+	@import '~uiStyle';
+	@import '~bootstrap/less/mixins/buttons.less';
 
+	.btn-v-link {
+		.button-variant(@button-color, @button-bg, @button-border);
+	}
 </style>
 
 <script>
