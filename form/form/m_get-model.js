@@ -13,11 +13,3 @@ export default function(vm) {
 
 };
 
-function setValues(data, vm) {
-	Object.keys(data).forEach(function(key) {
-		if (!vm.getField(key)) {
-			return;
-		}
-		vm.getField(key).setValue(data[key]);
-	});
-}
