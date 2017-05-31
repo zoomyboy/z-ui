@@ -1,5 +1,5 @@
 <template>
-	<div class="cp-w-child" :class="{'hidden': !this.active, 'container-fluid': container === true || containerForeign === true}">
+	<div class="cp-w-child" :class="{'hidden': !this.isActive, 'container-fluid': container === true}">
 		<slot></slot>
 	</div>
 </template>
@@ -16,9 +16,8 @@
 	module.exports = {
 		data: function() {
 			return {
-				active: 0,
-				isWChild: true,
-				containerForeign: false
+				isActive: false,
+				isTab: true
 			};
 		},
 		props: {
@@ -26,34 +25,26 @@
 				type: String,
 				required: true
 			},
-			index: {
-				type: String,
-				required: true
-			},
-			visible: {
+			container: {
 				type: Boolean,
 				required: false,
 				default: false
 			},
-			container: {
+			active: {
 				type: Boolean,
-				required: false,
 				default: false
 			}
 		},
 		mounted: function() {
 			var vm = this;
 
-			this.active = this.visible;
 			vm.$on('changestate', function(title, state) {
 				if (title == vm.title) {
-					vm.active = state;
+					vm.isActive = state;
 				}
 			});
 
-			vm.$events.listen('set-w-child-container', function() {
-				vm.containerForeign = true;
-			});
+			vm.isActive = vm.active;
 		}
 	};
 </script>

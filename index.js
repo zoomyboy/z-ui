@@ -39,3 +39,9 @@ export var heading = {
 		Vue.component('heading', require('./heading.vue'));
 	}
 };
+export var tab = {
+	install: function(Vue, options) {
+		Vue.component('tab', require('./tab.vue'));
+		Vue.component('tabs', require('./tabs.vue'));
+	}
+};
