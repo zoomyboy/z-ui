@@ -55,10 +55,16 @@ function submit(vm, data) {
 	axios[method](vm.action, vm.modifyData(data)).then(function(ret){
 		vm.$events.fire('messageClear', vm.statusbar);
 
-		if (vm.redirect.length > 0) {
-			vm.$session.flash(vm.$props.msg);
+		if (vm.redirect.length > 0 && vm.$router) {
+			if (vm.$session) {
+				vm.$session.flash(vm.$props.msg);
+			}
 			vm.$router.push({name: vm.redirect});
 			return;
+		}
+
+		if (ret.request.responseURL) {
+			window.location.href = ret.request.responseURL;
 		}
 
 		if (vm.$props.msg != '') {
