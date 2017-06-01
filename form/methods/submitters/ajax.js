@@ -85,10 +85,12 @@ function submit(vm, data) {
 			vm.$events.fire('messageDanger', `Ein Fehler ist aufgetreten. Bitte prüfen Sie Ihre Eingaben.`, vm.statusbar);
 			Object.keys(error.response.data).forEach((k) => {
 				var field = vm.getField(k);
-				if (field) {
+				if (typeof error.response.data[k] == 'object') {
 					error.response.data[k].forEach((msg) => {
 						field.$emit('parseError', msg);
 					});
+				} else if (typeof error.response.data[k] == 'string') {
+					field.$emit('parseError', error.response.data[k]);
 				}
 			});
 		}
