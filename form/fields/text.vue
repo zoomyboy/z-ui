@@ -1,6 +1,19 @@
 <template>
 	<div class="vf-field vf-field-text form-group">
-		<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label">
+		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
+
+		<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons">
+
+		<div v-if="hasAddons" class="input-group" ref="addon">
+			<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label">
+			<div class="input-group-addon" v-if="help != ''">
+				<span class="fa fa-question input-help" data-toggle="tooltip" data-original-title="" :title="help"></span>
+			</div>
+			<div class="input-group-addon" v-if="info != ''">
+				<span class="fa fa-info input-info" data-toggle="tooltip" data-original-title="" :title="info"></span>
+			</div>
+		</div>
+
 		<span class="label label-danger" v-if="error !== false">{{ error }}</span>
 	</div>
 </template>
@@ -12,10 +25,22 @@
 			.field-focus(@field-focus);
 			height: @field-height;
 		}
+		label {
+			color: @field-label-color;
+		}
+		.input-group-addon > span {
+			cursor: pointer;
+			font-size: 14pt;
+		}
+		.input-group-addon:first-of-type {
+			border-left: 0;
+		}
 	}
 </style>
 
 <script>
+	require('bootstrap');
+
 	export default {
 		props: {
 			label: {
@@ -26,6 +51,16 @@
 				required: true,
 			},
 			value: {
+				default: '',
+				type: String
+			},
+			help: {
+				required: false,
+				default: '',
+				type: String
+			},
+			info: {
+				required: false,
 				default: '',
 				type: String
 			}
@@ -42,6 +77,11 @@
 		watch: {
 			value: function(newVal) {
 				this.setValue(newVal);
+			}
+		},
+		computed: {
+			hasAddons: function() {
+				return this.help != '' || this.info != '';
 			}
 		},
 		data: function() {
@@ -70,6 +110,9 @@
 			vm.$events.listen('cleanFormErrors', function(error) {
 				vm.error = false;
 			});
+
+			$(this.$refs.addon).find('.input-help').tooltip();
+			$(this.$refs.addon).find('.input-info').tooltip();
 		}
 	};
 </script>

@@ -1,5 +1,5 @@
 <template>
-	<form :action="this.action" :method="this.method" :class="this.opts.layout" @submit.prevent="submit()" novalidate enctype="multipart/form-data">
+	<form :action="this.action" :method="this.method" :class="this.opts.layout" @submit.prevent="submit()" novalidate enctype="multipart/form-data" ref="form">
 		<vf-hidden name="_method" value="delete" v-if="method.toLowerCase() == 'delete'"></vf-hidden>
 		<vf-hidden name="_method" value="patch" v-if="method.toLowerCase() == 'patch'"></vf-hidden>
 		<slot></slot>

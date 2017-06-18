@@ -5,7 +5,8 @@ module.exports = function() {
 	  texts: {
 		  sending: 'Sending form...'
 	  },
-	  fieldClass: 'form-control'
+	  fieldClass: 'form-control',
+	  showLabel: true
   };
 
   return options;
