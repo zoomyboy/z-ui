@@ -12,12 +12,15 @@
 </template>
 
 <style lang="less">
+	@import '~uiStyle';
+
 	#page-heading {
 		margin-bottom: 10px;
 		position: relative;
-		background: rgba(252,252,252,.89);
+		background: @page-heading-bg;
 		padding-top: 20px;
 		padding-bottom: 20px;
+		border-bottom: @page-heading-border solid 1px;
 		.title {
 			font-size: 18px;
 			font-weight: 700;
@@ -26,9 +29,6 @@
 		.subtitle {
 			opacity: .6;
 			font-size: 13px;
-		}
-		&.line {
-			border-bottom: #eeeeee solid 1px;
 		}
 		&.small {
 			padding-bottom: 7px;
