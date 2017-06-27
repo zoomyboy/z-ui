@@ -47,3 +47,9 @@ export var tab = {
 		Vue.component('tabs', require('./tabs.vue'));
 	}
 };
+export var dropdown = {
+	install: function(Vue, options) {
+		Vue.component('dropdown', require('./dropdown.vue'));
+		Vue.component('dropdown-link', require('./dropdownlink.vue'));
+	}
+};
