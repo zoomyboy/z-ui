@@ -3,7 +3,7 @@
 		<div class="dropdown-toggle" type="button" data-toggle="dropdown">
 			{{ realTitle }} <span :class="['fa', caret]"></span>
 		</div>
-		<ul class="dropdown-menu">
+		<ul :class="['dropdown-menu', 'dropdown-menu-'+align]">
 			<slot></slot>
 		</ul>
 	</div>
@@ -26,6 +26,9 @@
 		props: {
 			title: {
 				default: ''
+			},
+			align: {
+				default: 'left'
 			}
 		},
 		computed: {

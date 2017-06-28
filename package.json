@@ -17,6 +17,7 @@
     "axios": "",
     "query-string": "",
     "bootstrap": "^3.3.7",
+	"moment": "^2.18.1",
     "jquery-datetimepicker": "^2.5.4"
   },
   "repository": {

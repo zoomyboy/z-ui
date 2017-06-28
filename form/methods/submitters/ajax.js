@@ -63,8 +63,9 @@ function submit(vm, data) {
 			return;
 		}
 
-		if (ret.request.responseURL) {
+		if (ret.request.responseURL && vm.$props.follow) {
 			window.location.href = ret.request.responseURL;
+			return;
 		}
 
 		if (vm.$props.msg != '') {

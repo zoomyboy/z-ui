@@ -154,6 +154,12 @@
 			vm.$events.listen('cleanFormErrors', function(error) {
 				vm.error = false;
 			});
+
+			this.$events.listen('model-loaded', function(form) {
+				if (form == vm.getForm()) {
+					vm.getForm().requireValue(vm.name);
+				}
+			});
 		}
 	};
 </script>

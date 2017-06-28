@@ -1,5 +1,5 @@
 <template>
-	<div class="vf-field vf-field-time form-group">
+	<div class="vf-field vf-field-date form-group">
 		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
 		<input ref="input" type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label">
 		<span class="label label-danger" v-if="error !== false">{{ error }}</span>
@@ -18,6 +18,7 @@
 
 <script>
 	require('jquery-datetimepicker');
+	var moment = require('moment');
 	require("jquery-datetimepicker/jquery.datetimepicker.css");
 
 	$.datetimepicker.setLocale('de');
@@ -34,16 +35,11 @@
 			value: {
 				default: '',
 				type: String
-			},
-			step: {
-				default: 30,
-				required: false,
-				type: Number
 			}
 		},
 		methods: {
 			getValue: function() {
-				return this.curValue;
+				return moment(this.curValue, 'DD.MM.YYYYY').format('YYYY-MM-DD');
 			},
 			setValue: function(newVal) {
 				this.curValue = newVal;
@@ -73,8 +69,9 @@
 			});
 
 			$(this.$refs.input).datetimepicker({
-				datepicker:false,
-				format:'H:i',
+				datepicker:true,
+				timepicker: false,
+				format:'d.m.Y',
 				step: vm.step,
 				onChangeDateTime: function(dp, $input) {
 					vm.curValue = $input.val();

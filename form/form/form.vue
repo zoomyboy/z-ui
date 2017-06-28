@@ -66,6 +66,10 @@
 				type: Boolean,
 				default: false
 			},
+			follow: {
+				type: Boolean,
+				default: false
+			},
 			statusbar: {
 				type: String,
 				default: undefined
