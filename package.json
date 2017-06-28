@@ -1,6 +1,6 @@
 {
   "name": "z-ui",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "Vue User Interfaces",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "axios": "",
     "query-string": "",
     "bootstrap": "^3.3.7",
-	"moment": "^2.18.1",
+    "moment": "^2.18.1",
     "jquery-datetimepicker": "^2.5.4"
   },
   "repository": {
