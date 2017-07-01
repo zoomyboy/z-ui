@@ -80,7 +80,6 @@ function submit(vm, data) {
 		vm.sending = false;
 	})
 	.catch(function(error) {
-		console.log(error);
 		vm.$events.fire('messageClear');
 		if (error.response.status == 404) {
 			vm.$events.fire('messageDanger', 'Die angegebene Resource wurde leider nicht gefunden.', vm.statusbar);
@@ -89,7 +88,6 @@ function submit(vm, data) {
 			vm.$events.fire('messageDanger', `<b>E500: Ein Fehler ist aufgetreten:</b><br>${error.response.data.message}<br>in file ${error.response.data.file}<br>on line ${error.response.data.line}`, vm.statusbar);
 		}
 		if (error.response.status == 422) {
-			vm.$events.fire('messageDanger', `Ein Fehler ist aufgetreten. Bitte prüfen Sie Ihre Eingaben.`, vm.statusbar);
 			Object.keys(error.response.data).forEach((k) => {
 				var field = vm.getField(k);
 				if (typeof error.response.data[k] == 'object') {
@@ -100,6 +98,7 @@ function submit(vm, data) {
 					field.$emit('parseError', error.response.data[k]);
 				}
 			});
+			vm.$events.fire('messageDanger', `Ein Fehler ist aufgetreten. Bitte prüfen Sie Ihre Eingaben.`, vm.statusbar);
 		}
 	});
 

@@ -71,6 +71,8 @@
 					warning: [],
 					danger: []
 				};
+
+				this.$events.fire('statusbarcleared', this);
 			},
 			count: function(status) {
 				if (status == undefined) {

@@ -5,7 +5,7 @@
 			<div :class="['checkboxes-check', {'active': isActive(ind)}]" @click="toggle(ind)">
 				<span v-if="isActive(ind)" class="fa fa-check"></span>
 			</div>
-			<span class="checkbox-label" @click.self="toggle(ind)">{{ cb.title }}</span>
+			<span class="checkbox-label" @click.self="toggle(ind)">{{ cb[checkboxlabel] }}</span>
 		</div>
 		<div v-if="error !== false">
 			<span class="label label-danger" >{{ error }}</span>
@@ -84,6 +84,11 @@
 			url: {
 				type: String,
 				required: true
+			},
+			checkboxlabel: {
+				default: 'title',
+				required: false,
+				type: String
 			}
 		},
 		methods: {

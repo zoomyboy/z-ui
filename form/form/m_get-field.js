@@ -8,6 +8,10 @@ function getField(instance, value) {
 	if (!instance)
 		return false;
 
+	if (instance.hasOwnProperty('isField') && instance.isField && instance.$props.name == dotToArray(value)) {
+		return instance;
+	}
+
 	if(instance.hasOwnProperty('$children') && instance.$children.length) {
 		var f = false;
 
@@ -21,9 +25,6 @@ function getField(instance, value) {
 		return f;
 	}
 
-	if (instance.hasOwnProperty('isField') && instance.isField && instance.$props.name == dotToArray(value)) {
-		return instance;
-	}
 
 	return false;
 }
