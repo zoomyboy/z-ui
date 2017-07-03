@@ -162,7 +162,7 @@
 				vm.items = res.data;
 
 				vm.$nextTick(function() {
-					$(vm.$refs.checkboxeswrapper).find('.badge').tooltip();
+					$(vm.$refs.checkboxeswrapper).find('.badge').tooltip({html: true});
 				});
 			});
 

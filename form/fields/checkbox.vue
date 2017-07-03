@@ -1,10 +1,11 @@
 <template>
-	<div class="vf-field-checkbox-wrapper">
+	<div class="vf-field-checkbox-wrapper" ref="checkboxwrapper">
 		<div class="vf-field vf-field-checkbox">
 			<div :class="['checkbox-check', {'active': curValue === true}]" @click="toggle">
 				<span v-if="curValue === true" class="fa fa-check"></span>
 			</div>
 			<span class="checkbox-label" @click.self="toggle">{{ label }}</span>
+			<span class="badge fa fa-question item-help" v-if="help !== ''" data-toggle="tooltip" data-original-title="" :title="help"></span>
 		</div>
 		<div v-if="error !== false">
 			<span class="label label-danger" >{{ error }}</span>
@@ -19,6 +20,9 @@
 		margin-bottom: 15px;
 	}
 	.vf-field-checkbox {
+		.badge {
+			display: inline-block !important;
+		}
 		.checkbox-check {
 			display: inline-block;
     		text-align: center;
@@ -74,6 +78,11 @@
 			value: {
 				default: false,
 				type: Boolean
+			},
+			help: {
+				default: '',
+				required: false,
+				type: String
 			}
 		},
 		methods: {
@@ -82,6 +91,8 @@
 			},
 			toggle: function() {
 				this.curValue = !this.curValue;
+
+				this.$events.fire('vf-checkbox-change', this.name, this.curValue);
 			},
 			setValue: function(value) {
 				this.curValue = value;
@@ -118,6 +129,8 @@
 					vm.getForm().requireValue(vm.name);
 				}
 			});
+
+			$(vm.$refs.checkboxwrapper).find('.badge').tooltip({html: true});
 		}
 	};
 </script>
