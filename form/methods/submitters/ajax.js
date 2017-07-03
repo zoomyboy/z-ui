@@ -47,8 +47,10 @@ function askSubmitButton(vm, data) {
 }
 
 function submit(vm, data) {
-	vm.sending = true;
-	vm.$events.fire('messageInfo', vm.opts.texts.sending, vm.statusbar);
+	var sendingMessage = vm.opts.texts.sending;
+	if (sendingMessage !== false) {
+		vm.$events.fire('messageInfo', sendingMessage, vm.statusbar);
+	}
 	vm.$events.fire('cleanFormErrors');
 
 	var method = vm.realMethod.toLowerCase();
@@ -76,8 +78,6 @@ function submit(vm, data) {
 		if (table) {
 			table.$emit('row-deleted', {'data': data, 'url': vm.action});
 		}
-
-		vm.sending = false;
 	})
 	.catch(function(error) {
 		vm.$events.fire('messageClear');
