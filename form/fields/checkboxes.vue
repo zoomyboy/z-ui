@@ -1,11 +1,12 @@
 <template>
-	<div class="vf-field-checkboxes-wrapper">
+	<div class="vf-field-checkboxes-wrapper" ref="checkboxeswrapper">
 		<span class="checkboxes-label">{{ label }}</span>
 		<div class="vf-field-checkboxes" v-for="(cb, ind) in items">
 			<div :class="['checkboxes-check', {'active': isActive(ind)}]" @click="toggle(ind)">
 				<span v-if="isActive(ind)" class="fa fa-check"></span>
 			</div>
-			<span class="checkbox-label" @click.self="toggle(ind)">{{ cb[checkboxlabel] }}</span>
+			<span class="checkbox-label" @click.self="toggle(ind)">{{ cb[itemlabel] }}</span>
+			<span class="badge fa fa-question item-help" v-if="itemhelp !== '' && cb[itemhelp] != undefined" data-toggle="tooltip" data-original-title="" :title="cb[itemhelp]"></span>
 		</div>
 		<div v-if="error !== false">
 			<span class="label label-danger" >{{ error }}</span>
@@ -24,6 +25,9 @@
 	}
 	.vf-field-checkboxes {
 		margin: 3px 0;
+		.badge {
+			display: inline-block !important;
+		}
 		.checkboxes-check {
 			display: inline-block;
     		text-align: center;
@@ -67,6 +71,7 @@
 
 <script>
 	require('font-awesome-webpack');
+	require('bootstrap');
 
 	export default {
 		props: {
@@ -85,8 +90,13 @@
 				type: String,
 				required: true
 			},
-			checkboxlabel: {
+			itemlabel: {
 				default: 'title',
+				required: false,
+				type: String
+			},
+			itemhelp: {
+				default: '',
 				required: false,
 				type: String
 			}
@@ -150,6 +160,10 @@
 
 			axios.get(this.url).then(function(res) {
 				vm.items = res.data;
+
+				vm.$nextTick(function() {
+					$(vm.$refs.checkboxeswrapper).find('.badge').tooltip();
+				});
 			});
 
 			this.$on('parseError', function(error) {
@@ -165,6 +179,7 @@
 					vm.getForm().requireValue(vm.name);
 				}
 			});
+
 		}
 	};
 </script>
