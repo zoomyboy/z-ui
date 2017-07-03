@@ -1,33 +1,59 @@
 <template>
-	<div v-if="count() > 0" :class="['formStatusBar', {'container-fluid': container === true}]">
-		<ul v-for="status in statuses" :class="'alert alert-'+status" v-if="count(status) > 0">
-			<li v-for="message in messages[status]" v-html="message"></li>
-		</ul>
+	<div :class="['formStatusBar', {'container-fluid': container === true}, 'layout-'+layout]">
+		<transition-group tag="ul" name="statusbaritem">
+			<statusbaritem v-for="item in items" :layout="layout" :status="item.status" :messages="item.messages" :key="item" class="statusbaritem-item"></statusbaritem>
+		</transition-group>
 	</div>
 </template>
 
 <style lang="less">
 	.formStatusBar {
-		ul {
-			list-style-type: none;
-		}
+		&.layout-october {
+			position: fixed;
+			width: 100%;
+			left: 0;
+			z-index: 10000;
+			display: block;
+			top: 20px;
+			ul {
+				margin: 0 auto;
+				max-width: 800px;
+				width: 90%;
+				list-style-type: none;
+				padding-left: 0;
+			}
+	 	}
+	}
+
+	.statusbaritem-item {
+		display: block;
+		margin-bottom: 10px;
+	}
+	.statusbaritem-enter-active, .statusbaritem-leave-active {
+		transition: opacity 1s, transform 1s;
+	}
+	.statusbaritem-enter {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	.statusbaritem-leave-to {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	.statusbaritem-move {
+	  transition: transform 1s;
 	}
 </style>
 
 <script>
 	module.exports = {
-		data: ()=> {
+		data: function() {
 			return {
-				messages: {
-					info: [],
-					success: [],
-					warning: [],
-					danger: []
-				},
-				status:'success',
-				statuses: ['info', 'warning', 'danger', 'success'],
-				activeTimeout: false
-			}
+				items: []
+			};
+		},
+		components: {
+			'statusbaritem': require('./status-bar-item.vue')
 		},
 		props: {
 			hideAfter: {
@@ -39,52 +65,35 @@
 			},
 			id: {
 				default: undefined
+			},
+			layout: {
+				type: String,
+				default: 'bootstrap',
+				required: false
 			}
 		},
 		methods: {
-			_setMessages: function (messages, status) {
+			_setMessages: function (messages, status, hideAfter) {
 				var vm = this;
 
-				if (this.activeTimeout != false) {
-					vm.clear();
-					window.clearTimeout(this.activeTimeout);
+				if (hideAfter == undefined) {hideAfter = true;}
+
+				var hash = Math.random().toString().slice(2);
+
+				this.items.unshift({status: status, messages: messages, hideAfter: hideAfter, hash: hash});
+
+				if (hideAfter) {
+					window.setTimeout(function() {
+						vm.items = vm.items.filter(function(item) {
+							return item.hash != hash;
+						});
+					}, vm.hideAfter);
 				}
-
-				if (typeof messages == 'string') {
-					messages = [messages];
-				}
-
-				this.messages[status] = messages;
-
-				this.activeTimeout = window.setTimeout(function() {
-					vm.clear();
-				}, vm.hideAfter);
 			},
 			clear() {
-				if (this.activeTimeout != false) {
-					window.clearTimeout(this.activeTimeout);
-				}
-
-				this.messages = {
-					info: [],
-					success: [],
-					warning: [],
-					danger: []
-				};
-
+				this.messages = [];
 				this.$events.fire('statusbarcleared', this);
-			},
-			count: function(status) {
-				if (status == undefined) {
-					return this.messages.info.length + this.messages.success.length + this.messages.warning.length + this.messages.danger.length;
-				}
-
-				if (typeof this.messages[status] === 'string') {
-					return 1;
-				}
-
-				return this.messages[status].length;
-			},
+			}
 		},
 		mounted: function() {
 			var vm = this;
