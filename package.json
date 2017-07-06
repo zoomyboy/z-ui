@@ -19,7 +19,7 @@
     "bootstrap": "^3.3.7",
     "moment": "^2.18.1",
     "jquery-datetimepicker": "^2.5.4",
-    "z-vuestrap2": "^0.0.1",
+    "z-vuestrap2": "^0.0.3",
     "to-case": "^2.0.0",
     "vue-inputmask": "^0.1.2"
   },
