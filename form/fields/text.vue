@@ -2,10 +2,10 @@
 	<div class="vf-field vf-field-text form-group">
 		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
 
-		<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons">
+		<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons" v-mask="mask">
 
 		<div v-if="hasAddons" class="input-group" ref="addon">
-			<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label">
+			<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-mask="mask">
 			<div class="input-group-addon" v-if="help != ''">
 				<span class="fa fa-question input-help" data-toggle="tooltip" data-original-title="" :title="help"></span>
 			</div>
@@ -63,6 +63,10 @@
 				required: false,
 				default: '',
 				type: String
+			},
+			mask: {
+				required: false,
+				default: '',
 			}
 		},
 		methods: {

@@ -39,8 +39,8 @@
 		},
 		data: function() {
 			return {
-				isField: true,
-				error: false
+				error: false,
+				isSubmit: true
 			};
 		},
 		methods: {

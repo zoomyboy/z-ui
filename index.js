@@ -17,6 +17,7 @@ export var form = {
 		Vue.component('vf-time', require('./form/fields/time.vue'));
 		Vue.component('vf-date', require('./form/fields/date.vue'));
 		Vue.component('vf-range', require('./form/fields/range.vue'));
+		Vue.use(require('vue-inputmask'));
 	}
 };
 export var statusBar = {

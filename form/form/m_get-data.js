@@ -8,7 +8,8 @@ function getValues(instance, values) {
 	if (!instance)
 		return values;
 
-	if (instance.hasOwnProperty('isField') && instance.isField) {
+	if (instance.hasOwnProperty('isField') && instance.isField
+		|| instance.hasOwnProperty('isSubmit') && instance.isSubmit && instance.getValue()) {
 		return merge.recursive(values, parseValueAndName(instance.$props.name, instance.getValue()));
 	}
 
@@ -33,7 +34,6 @@ function parseValueAndName(name, value) {
 		var erstername = name.slice(0, name.indexOf('['));
 		var inner = name.slice(name.indexOf('[')+1, name.indexOf(']'));
 		var after = name.slice(name.indexOf(']')+1);
-		console.log(after);
 		data[erstername] = parseValueAndName(inner + after, value);
 	} else {
 		data[name] = value;

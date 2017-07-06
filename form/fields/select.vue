@@ -20,6 +20,9 @@
 		margin-bottom: 15px;
 		.select-label {
 			font-weight: bold;
+			color: @field-label-color;
+			margin-bottom: 5px;
+			display: block;
 		}
 		& *:focus {
 			outline: none !important;
@@ -105,9 +108,19 @@
 				type: String,
 				default: ''
 			},
-			allownull: {
+			nullable: {
 				default: false,
 				type: Boolean
+			},
+			valuetitle: {
+				default: undefined,
+				type: String,
+				required: false
+			},
+			valueurl: {
+				default: undefined,
+				type: String,
+				required: false
 			}
 		},
 		methods: {
@@ -118,9 +131,9 @@
 				var vm = this;
 
 				if (vm.placeholder) {
-					select.select2({placeholder: vm.placeholder, allowClear: vm.allownull});
+					select.select2({placeholder: vm.placeholder, allowClear: vm.nullable});
 				} else {
-					select.select2({placeholder: '---', allowClear: vm.allownull});
+					select.select2({placeholder: '---', allowClear: vm.nullable});
 				}
 				select.append(`<option></option>`);
 				
@@ -157,6 +170,21 @@
 					select.on('select2:unselect', function() {
 						vm.curValue = null;
 					});
+
+					if (vm.valuetitle) {
+						ret.data.forEach(function(item) {
+							if (item.title == vm.valuetitle) {
+								vm.curValue = item.id;
+							}
+						});
+					}
+					if (vm.valueurl) {
+						axios.get(vm.valueurl).then(function(defaultret) {
+							if (defaultret.data.id != undefined) {
+								vm.curValue = defaultret.data.id;
+							}
+						});
+					}
 
 					vm.listen();
 				});

@@ -1,5 +1,8 @@
+var to = require('to-case');
+
 export default function(name) {
 	var vm = this;
+
 	if (vm.model == false) {return;}
 
 	var val = getModelProp(vm.model, name);
@@ -23,6 +26,6 @@ function getModelProp(model, name) {
 		var after = name.slice(name.indexOf(']')+1);
 		return getModelProp(model[erstername], inner + after);
 	} else {
-		return model[name];
+		return model[to.snake(name)];
 	}
 }

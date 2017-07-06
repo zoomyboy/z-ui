@@ -1,5 +1,5 @@
 <template>
-	<router-link :to="realHref" :class="['btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-v-link']"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
+	<router-link v-if="hasRight" :to="realHref" :class="['btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-v-link']"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
 </template>
 
 <style lang="less">
@@ -44,6 +44,10 @@
 			add: {
 				type: Boolean,
 				default: false
+			},
+			right: {
+				default: undefined,
+				required: false
 			}
 		},
 		computed: {
@@ -65,6 +69,9 @@
 				}
 
 				return this.icon;
+			},
+			hasRight: function() {
+				return this.$user == undefined || this.right == undefined || this.$user.hasRight(this.right);
 			}
 		}
 	};

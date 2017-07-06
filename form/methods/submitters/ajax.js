@@ -81,24 +81,28 @@ function submit(vm, data) {
 	})
 	.catch(function(error) {
 		vm.$events.fire('messageClear');
-		if (error.response.status == 404) {
-			vm.$events.fire('messageDanger', 'Die angegebene Resource wurde leider nicht gefunden.', vm.statusbar);
-		}
-		if (error.response.status == 500) {
-			vm.$events.fire('messageDanger', `<b>E500: Ein Fehler ist aufgetreten:</b><br>${error.response.data.message}<br>in file ${error.response.data.file}<br>on line ${error.response.data.line}`, vm.statusbar);
-		}
-		if (error.response.status == 422) {
-			Object.keys(error.response.data).forEach((k) => {
-				var field = vm.getField(k);
-				if (typeof error.response.data[k] == 'object') {
-					error.response.data[k].forEach((msg) => {
-						field.$emit('parseError', msg);
-					});
-				} else if (typeof error.response.data[k] == 'string') {
-					field.$emit('parseError', error.response.data[k]);
-				}
-			});
-			vm.$events.fire('messageDanger', `Ein Fehler ist aufgetreten. Bitte prüfen Sie Ihre Eingaben.`, vm.statusbar);
+		switch(error.response.status) {
+			case 404:
+				vm.$events.fire('messageDanger', vm.opts.texts.notfound, vm.statusbar);
+				break;
+			case 500:
+				vm.$events.fire('messageDanger', `<b>E500: Ein Fehler ist aufgetreten:</b><br>${error.response.data.message}<br>in file ${error.response.data.file}<br>on line ${error.response.data.line}`, vm.statusbar);
+				break;
+			case 403:
+				vm.$events.fire('messageDanger', vm.opts.texts.unauthorized, vm.statusbar);
+				break;
+			case 422:
+				Object.keys(error.response.data).forEach((k) => {
+					var field = vm.getField(k);
+					if (typeof error.response.data[k] == 'object') {
+						error.response.data[k].forEach((msg) => {
+							field.$emit('parseError', msg);
+						});
+					} else if (typeof error.response.data[k] == 'string') {
+						field.$emit('parseError', error.response.data[k]);
+					}
+				});
+				vm.$events.fire('messageDanger', `Ein Fehler ist aufgetreten. Bitte prüfen Sie Ihre Eingaben.`, vm.statusbar);
 		}
 	});
 

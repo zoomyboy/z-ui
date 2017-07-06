@@ -7,7 +7,7 @@
 				</a>
 			</li>
 		</ul>
-		<div class="container-fluid">
+		<div :class="{'container-fluid': container}">
 			<slot></slot>
 		</div>
 	</div>
@@ -22,6 +22,9 @@
 			margin: 10px 0;
 			borrder-bottom-color: @borders1;
 			& > li {
+				margin-right: 10px;
+				cursor: pointer;
+				&:last-child {margin-right: 0;}
 				& > a {
 					cursor: pointer;
 					border-top: 4px solid rgba(0,0,0,0);
@@ -45,6 +48,12 @@
 			return {
 				titles: []
 			};
+		},
+		props: {
+			container: {
+				default: false,
+				type: Boolean
+			}
 		},
 		computed: {
 			active: function() {
