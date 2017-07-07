@@ -3,7 +3,7 @@
 		<span class="select-label">{{ label }}</span>
 		<div>
 			<select class="vf-field-select" ref="selectField">
-				<option v-for="(cb, ind) in items" :value="ind" >{{ cb.title }}</option>
+				<option v-for="(cb, ind) in items" :value="ind" >{{ cb.valueprop }}</option>
 			</select>
 		</div>
 		<div v-if="error !== false">
@@ -57,6 +57,10 @@
 		.select2-selection__rendered {
 			line-height: @field-height - (@field-padding-v + @field-border-strength) * 2;
 			padding: 0;
+			.select2-selection__clear {
+				font-size: 22px;
+				margin-right: 5px;
+			}
 		}
 	}
 	span.select2-dropdown {
@@ -121,7 +125,17 @@
 				default: undefined,
 				type: String,
 				required: false
-			}
+			},
+			idprop: {
+				default: undefined,
+				type: String,
+				required: false
+			},
+			valueprop: {
+				default: 'title',
+				type: String,
+				required: false
+			},
 		},
 		methods: {
 			getValue: function() {
@@ -140,7 +154,7 @@
 				if (vm.url == '') {
 					//Options is set - get options from options prop
 					vm.options.forEach(function(option) {
-						select.append(`<option value="${option.id}">${option.title}</option>`);
+						select.append(`<option value="${option[vm.idprop]}">${option[vm.valueprop]}</option>`);
 					});
 
 					select.trigger('change');
@@ -160,7 +174,7 @@
 				//Url is set - Get options from that url
 				axios.get(vm.url).then(function(ret) {
 					ret.data.forEach(function(item) {
-						select.append(`<option value="${item.id}">${item.title}</option>`);
+						select.append(`<option value="${item[vm.idprop]}">${item[vm.valueprop]}</option>`);
 					});
 					select.trigger('change');
 
@@ -173,15 +187,15 @@
 
 					if (vm.valuetitle) {
 						ret.data.forEach(function(item) {
-							if (item.title == vm.valuetitle) {
-								vm.curValue = item.id;
+							if (item[vm.valueprop] == vm.valuetitle) {
+								vm.curValue = item[vm.idprop];
 							}
 						});
 					}
 					if (vm.valueurl) {
 						axios.get(vm.valueurl).then(function(defaultret) {
-							if (defaultret.data.id != undefined) {
-								vm.curValue = defaultret.data.id;
+							if (defaultret.data[idprop] != undefined) {
+								vm.curValue = defaultret.data[idprop];
 							}
 						});
 					}
@@ -189,7 +203,7 @@
 					vm.listen();
 				});
 			},
-			setValue: function(newVal) {
+			setValue: function(newVal, oldVal) {
 				if (typeof newVal == 'object') {
 					this.curValue = newVal.id;
 				} else {
@@ -197,11 +211,19 @@
 				}
 
 				this.$events.fire('vf-select-change', this.name, newVal);
+				this.$events.fire('vf-select-change-'+this.name, newVal, oldVal);
 			},
 			listen: function() {
 				var vm = this;
 
+				if (vm.value) {
+					vm.curValue = vm.value;
+				}
+
+				if (!this.getForm()) {return;}
+
 				this.getForm().requireValue(this.name);
+
 				this.$events.listen('model-loaded', function(form) {
 					if (form == vm.getForm()) {
 						vm.getForm().requireValue(vm.name);
@@ -214,12 +236,13 @@
 			value: function(newVal) {
 				this.setValue(newVal);
 			},
-			curValue: function(newVal) {
+			curValue: function(newVal, oldVal) {
 				var vm = this;
 
 				var $select = $(vm.$refs.selectField);
 				$select.val(newVal).trigger('change');
 				this.$events.fire('vf-select-change', this.name, newVal);
+				this.$events.fire('vf-select-change-'+this.name, newVal, oldVal);
 			}
 		},
 		data: function() {
@@ -236,7 +259,7 @@
 			if (typeof this.value == "object" && this.value != null) {
 				this.curValue = this.value.map(function(item) {
 					if (typeof item == 'object') {
-						return item.id;
+						return item[idprop];
 					}
 
 					return item;
