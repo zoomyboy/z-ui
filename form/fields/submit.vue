@@ -6,10 +6,8 @@
 
 <style lang="less">
 	@import '~uiStyle';
-	@import '~bootstrap/less/mixins/buttons.less';
 
 	.vf-field.vf-field-submit {
-		.button-variant(@button-color, @button-bg, @button-border);
 		.btn-group > & {
 			display: inline-block;
 			float: none;
