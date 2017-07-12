@@ -92,20 +92,30 @@ function submit(vm, data) {
 				vm.$events.fire('messageDanger', vm.opts.texts.unauthorized, vm.statusbar);
 				break;
 			case 422:
+				var globalErr = vm.opts.texts.validationError;
 				Object.keys(error.response.data).forEach((k) => {
 					var field = vm.getField(k);
-					if (typeof error.response.data[k] == 'object') {
-						error.response.data[k].forEach((msg) => {
-							field.$emit('parseError', msg);
-						});
-					} else if (typeof error.response.data[k] == 'string') {
-						field.$emit('parseError', error.response.data[k]);
+
+					if (field == false) {
+						globalErr += '<br>'+objOrString(error.response.data[k]);
+						return;
 					}
+
+					field.$emit('parseError', objOrString(error.response.data[k]));
 				});
-				vm.$events.fire('messageDanger', `Ein Fehler ist aufgetreten. Bitte prüfen Sie Ihre Eingaben.`, vm.statusbar);
+				if (globalErr.length) {
+					vm.$events.fire('messageDanger', globalErr, vm.statusbar);
+				}
 		}
 	});
 
 	return true;
 }
 
+function objOrString(v) {
+	if (typeof v == 'object') {
+		return v.join(', ');
+	}
+
+	return v;
+}

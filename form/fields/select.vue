@@ -127,7 +127,7 @@
 				required: false
 			},
 			idprop: {
-				default: undefined,
+				default: 'id',
 				type: String,
 				required: false
 			},

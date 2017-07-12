@@ -1,3 +1,5 @@
+var to = require('to-case');
+
 import merge from 'merge';
 
 export default function(row, field) {
@@ -16,10 +18,16 @@ function getValues(instance, row, field) {
 function parseValueAndName(row, field) {
  	var data = {};
 
+
 	if (field.indexOf("[") !== -1) {
-		var erstername = field.slice(0, field.indexOf('['));
+		var erstername = to.snake(field.slice(0, field.indexOf('[')));
 		var inner = field.slice(field.indexOf('[')+1,field.indexOf(']'));
 		var after =field.slice(field.indexOf(']')+1);
+
+		if(row[erstername] === null) {
+			return '';
+		}
+
 		return parseValueAndName(row[erstername], inner + after);
 	} else {
 		return row[field];
