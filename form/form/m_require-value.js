@@ -21,11 +21,11 @@ function getModelProp(model, name) {
  	var data = {};
 
 	if (name.indexOf("[") !== -1) {
-		var erstername = name.slice(0, name.indexOf('['));
+		var erstername = to.snake(name.slice(0, name.indexOf('[')));
 		var inner = name.slice(name.indexOf('[')+1, name.indexOf(']'));
 		var after = name.slice(name.indexOf(']')+1);
 		return getModelProp(model[erstername], inner + after);
 	} else {
-		return model[to.snake(name)];
+		return model[name];
 	}
 }
