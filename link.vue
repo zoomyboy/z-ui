@@ -1,5 +1,8 @@
 <template>
-	<router-link v-if="hasRight" :to="realHref" :class="['btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-primary']"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
+	<div :class="['btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-primary', 'btn-group-item']">
+		<router-link v-if="hasRight && route != false" :to="route" :target="target"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
+		<a v-if="hasRight && href != false" :href="href" :target="target"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></a>
+	</div>
 </template>
 
 <style lang="less">
@@ -11,6 +14,10 @@
 			display: inline-block;
 			float: none;
 		}
+	}
+
+	.btn-group-item > a {
+		color: #fff;
 	}
 </style>
 
@@ -47,16 +54,12 @@
 			right: {
 				default: undefined,
 				required: false
+			},
+			target: {
+				default: '_SELF'
 			}
 		},
 		computed: {
-			realHref: function() {
-				if (this.route) {
-					return {name: this.route};
-				} else {
-					return this.href;
-				}
-			},
 			realLabel: function() {
 				if (this.add) {
 					return 'Hinzufügen';

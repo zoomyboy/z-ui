@@ -1,36 +1,101 @@
 {
-  "name": "z-ui",
-  "version": "1.0.42",
-  "description": "Vue User Interfaces",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_args": [
+    [
+      {
+        "raw": "z-ui@^1.0",
+        "scope": null,
+        "escapedName": "z-ui",
+        "name": "z-ui",
+        "rawSpec": "^1.0",
+        "spec": ">=1.0.0 <2.0.0",
+        "type": "range"
+      },
+      "/home/vagrant/www/immoneu"
+    ]
+  ],
+  "_from": "z-ui@>=1.0.0 <2.0.0",
+  "_id": "z-ui@1.0.42",
+  "_inCache": true,
+  "_location": "/z-ui",
+  "_nodeVersion": "6.9.5",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/z-ui-1.0.42.tgz_1500142943344_0.684475411195308"
+  },
+  "_npmUser": {
+    "name": "zoomyboy",
+    "email": "pille@zoomyboy.de"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {
+    "follow-redirects": "1.2.4",
+    "is-buffer": "1.1.5"
+  },
+  "_requested": {
+    "raw": "z-ui@^1.0",
+    "scope": null,
+    "escapedName": "z-ui",
+    "name": "z-ui",
+    "rawSpec": "^1.0",
+    "spec": ">=1.0.0 <2.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/",
+    "/z-vue-sidebar"
+  ],
+  "_resolved": "https://registry.npmjs.org/z-ui/-/z-ui-1.0.42.tgz",
+  "_shasum": "fe4c2232cc8a35ed77c4f8086f73ec51171d52cb",
+  "_shrinkwrap": null,
+  "_spec": "z-ui@^1.0",
+  "_where": "/home/vagrant/www/immoneu",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/zoomyboy/z-ui/issues"
   },
   "dependencies": {
-    "vue-events": "^3.0",
-    "merge": "",
-    "sweetalert2": "",
-    "zoom-vue-session": "",
+    "axios": "",
+    "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "0.0.5-beta.2",
-    "select2": "",
-    "axios": "",
-    "query-string": "",
-    "bootstrap": "^3.3.7",
-    "moment": "^2.18.1",
     "jquery-datetimepicker": "^2.5.4",
-    "z-vuestrap2": "^0.0.3",
+    "merge": "",
+    "moment": "^2.18.1",
+    "query-string": "",
+    "select2": "",
+    "sweetalert2": "",
     "to-case": "^2.0.0",
-    "vue-inputmask": "^0.1.2"
+    "vue-events": "^3.0",
+    "vue-inputmask": "^0.1.2",
+    "z-vuestrap2": "^0.0.3",
+    "zoom-vue-session": ""
   },
+  "description": "Vue User Interfaces",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "fe4c2232cc8a35ed77c4f8086f73ec51171d52cb",
+    "tarball": "https://registry.npmjs.org/z-ui/-/z-ui-1.0.42.tgz"
+  },
+  "gitHead": "312129deb19b8209b8bdbd24e4a80926ffb6c257",
+  "homepage": "https://github.com/zoomyboy/z-ui#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "zoomyboy",
+      "email": "pille@zoomyboy.de"
+    }
+  ],
+  "name": "z-ui",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zoomyboy/z-ui.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zoomyboy/z-ui/issues"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/zoomyboy/z-ui#readme"
+  "version": "1.0.42"
 }
