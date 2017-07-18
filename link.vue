@@ -1,6 +1,6 @@
 <template>
-	<div :class="['btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-primary', 'btn-group-item']">
-		<router-link v-if="hasRight && route != false" :to="{name: 'immo.events', params: {id: model.id}}" :target="target"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
+	<div :class="['btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-group-item']">
+		<router-link v-if="hasRight && route != false" :to="{name: route, params: {id: (model) ? model.id : undefined}}" :target="target"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
 		<a v-if="hasRight && href != false" :href="href" :target="target"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></a>
 	</div>
 </template>

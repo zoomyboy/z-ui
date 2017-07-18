@@ -9,6 +9,7 @@ module.exports = function() {
 		  validationError: 'An error occured. Please check your input!'
 	  },
 	  fieldClass: 'form-control',
+	  ckeditor: true,
 	  showLabel: true
   };
 

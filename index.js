@@ -8,6 +8,7 @@ export var form = {
 	install: function(Vue, options) {
 		Vue.component('vf-form',require('./form/form/form.vue'));
 		Vue.component('vf-text', require('./form/fields/text.vue'));
+		Vue.component('vf-textarea', require('./form/fields/textarea.vue'));
 		Vue.component('vf-password', require('./form/fields/password.vue'));
 		Vue.component('vf-checkbox', require('./form/fields/checkbox.vue'));
 		Vue.component('vf-checkboxes', require('./form/fields/checkboxes.vue'));
@@ -34,7 +35,7 @@ export var table = {
 export var link = {
 	install: function(Vue, options) {
 		Vue.component('v-link', require('./link.vue'));
-		Vue.component('button-bar', require('./button-bar.vue'));
+		Vue.component('buttonbar', require('./button-bar.vue'));
 	}
 };
 export var heading = {
