@@ -21,9 +21,9 @@ export var form = {
 		Vue.use(require('vue-inputmask'));
 	}
 };
-export var statusBar = {
+export var statusbar = {
 	install: function(Vue, options) {
-		Vue.component('status-bar', require('./status-bar.vue'));
+		Vue.component('statusbar', require('./statusbar.vue'));
 	}
 };
 export var table = {
@@ -40,7 +40,7 @@ export var link = {
 };
 export var heading = {
 	install: function(Vue, options) {
-		Vue.component('app-heading', require('./heading/app-heading.vue'));
+		Vue.component('appheading', require('./heading/appheading.vue'));
 		Vue.component('heading', require('./heading.vue'));
 	}
 };

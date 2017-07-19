@@ -83,7 +83,7 @@
 				type: Object
 			},
 			actions: {
-				default: []
+				default: function() {return [];}
 			},
 			deleteaction: {
 				type: Boolean,

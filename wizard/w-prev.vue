@@ -1,5 +1,5 @@
 <template>
-	<a href="#" @click="doPrev" :class="['btn', 'btn-primary', {'disabled': this.active === false}]"><slot></slot></a>
+	<a href="#" @click.prevent="doPrev" :class="['btn', 'btn-primary', {'disabled': this.active === false}]"><slot></slot></a>
 </template>
 
 <script>
