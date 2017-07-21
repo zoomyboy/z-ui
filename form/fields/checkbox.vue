@@ -69,7 +69,7 @@
 	export default {
 		props: {
 			label: {
-				default: '&nbsp;',
+				default: '',
 				required: false
 			},
 			name: {
