@@ -78,6 +78,10 @@
 			},
 			realCkeditor: function() {
 				return this.ckeditor || this.getForm().option('ckeditor');
+			},
+			id: function() {
+				return Math.random().toString(36).replace(/[^a-z]+/g, '')
+				+ Math.random().toString(36).replace(/[^a-z]+/g, '');
 			}
 		},
 		data: function() {
@@ -111,7 +115,16 @@
 			$(this.$refs.addon).find('.input-info').tooltip();
 
 			if (this.realCkeditor) {
-				$(this.$refs.ta).ckeditor();
+				var id = this.id;
+
+				$(this.$refs.ta).attr('id', id);
+
+				var ck = window.CKEDITOR.replace(id);
+				ck.on('change', function() {
+					ck.updateElement();
+					$('#'+id).trigger('change');
+					vm.setValue($('#'+id).val());
+				});
 			}
 		}
 	};

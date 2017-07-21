@@ -4,7 +4,7 @@
 			<div :class="['checkbox-check', {'active': curValue === true}]" @click="toggle">
 				<span v-if="curValue === true" class="fa fa-check"></span>
 			</div>
-			<span class="checkbox-label" @click.self="toggle"><slot></slot></span>
+			<span class="checkbox-label" @click.self="toggle">{{ label }}<slot></slot></span>
 			<span class="badge fa fa-question item-help" v-if="help !== ''" data-toggle="tooltip" data-original-title="" :title="help"></span>
 		</div>
 		<div v-if="error !== false">
