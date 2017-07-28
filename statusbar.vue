@@ -1,5 +1,5 @@
 <template>
-	<div :class="['formStatusBar', {'container-fluid': container === true}, 'layout-'+layout]">
+	<div :class="['formStatusBar', {'container-fluid': container === true}, 'layout-'+layout]" :style="{top: top+'px'}">
 		<transition-group tag="ul" name="statusbaritem">
 			<statusbaritem v-for="item in items" :layout="layout" :status="item.status" :messages="item.messages" :key="item" class="statusbaritem-item"></statusbaritem>
 		</transition-group>
@@ -14,7 +14,6 @@
 			left: 0;
 			z-index: 10000;
 			display: block;
-			top: 20px;
 			ul {
 				margin: 0 auto;
 				max-width: 800px;
@@ -70,24 +69,35 @@
 				type: String,
 				default: 'bootstrap',
 				required: false
+			},
+			top: {
+				default: 20
+			}
+		},
+		computed: {
+			realHideAfter: function() {
+				if (this.hideAfter == false || this.hideAfter == undefined) {
+					return false;
+				}
+
+				return this.hideAfter;
 			}
 		},
 		methods: {
-			_setMessages: function (messages, status, hideAfter) {
+			_setMessages: function (messages, status) {
 				var vm = this;
-
-				if (hideAfter == undefined) {hideAfter = true;}
 
 				var hash = Math.random().toString().slice(2);
 
-				this.items.unshift({status: status, messages: messages, hideAfter: hideAfter, hash: hash});
+				this.items.unshift({status: status, messages: messages, hideAfter: vm.realHideAfter, hash: hash});
+				console.log(vm.realHideAfter);
 
-				if (hideAfter) {
+				if (vm.realHideAfter) {
 					window.setTimeout(function() {
 						vm.items = vm.items.filter(function(item) {
 							return item.hash != hash;
 						});
-					}, vm.hideAfter);
+					}, vm.realHideAfter);
 				}
 			},
 			clear() {
@@ -97,27 +107,51 @@
 		},
 		mounted: function() {
 			var vm = this;
-			vm.$events.listen('messageDanger', function(messages, id) {
-				if (vm.id != id) {return;}
-				vm._setMessages(messages, 'danger');
-			});
+			if (vm.$events) {
+				vm.$events.listen('messageDanger', function(messages, id) {
+					if (vm.id != id) {return;}
+					vm._setMessages(messages, 'danger');
+				});
 
-			vm.$events.listen('messageSuccess', function(messages, id) {
-				if (vm.id != id) {return;}
-				vm._setMessages(messages, 'success');
-			});
-			vm.$events.listen('messageWarning', function(messages, id) {
-				if (vm.id != id) {return;}
-				vm._setMessages(messages, 'warning');
-			});
-			vm.$events.listen('messageInfo', function(messages, id) {
-				if (vm.id != id) {return;}
-				vm._setMessages(messages, 'info');
-			});
-			vm.$events.listen('messageClear', function(id) {
-				if (vm.id != id) {return;}
-				vm.clear();
-			});
+				vm.$events.listen('messageSuccess', function(messages, id) {
+					if (vm.id != id) {return;}
+					vm._setMessages(messages, 'success');
+				});
+				vm.$events.listen('messageWarning', function(messages, id) {
+					if (vm.id != id) {return;}
+					vm._setMessages(messages, 'warning');
+				});
+				vm.$events.listen('messageInfo', function(messages, id) {
+					if (vm.id != id) {return;}
+					vm._setMessages(messages, 'info');
+				});
+				vm.$events.listen('messageClear', function(id) {
+					if (vm.id != id) {return;}
+					vm.clear();
+				});
+			} else {
+				this.$on('messageDanger', function(messages, id) {
+					if (vm.id != id) {return;}
+					vm._setMessages(messages, 'danger');
+				});
+
+				this.$on('messageSuccess', function(messages, id) {
+					if (vm.id != id) {return;}
+					vm._setMessages(messages, 'success');
+				});
+				this.$on('messageWarning', function(messages, id) {
+					if (vm.id != id) {return;}
+					vm._setMessages(messages, 'warning');
+				});
+				this.$on('messageInfo', function(messages, id) {
+					if (vm.id != id) {return;}
+					vm._setMessages(messages, 'info');
+				});
+				this.$on('messageClear', function(id) {
+					if (vm.id != id) {return;}
+					vm.clear();
+				});
+			}
 		}
 	}
 </script>
