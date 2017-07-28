@@ -6,6 +6,7 @@ export var wizard = {
 };
 export var form = {
 	install: function(Vue, options) {
+		require('es6-promise').polyfill();
 		Vue.component('vf-form',require('./form/form/form.vue'));
 		Vue.component('vf-text', require('./form/fields/text.vue'));
 		Vue.component('vf-textarea', require('./form/fields/textarea.vue'));

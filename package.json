@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "axios": "",
+    "es6-promise": "^4.1.1",
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "0.0.5-beta.2",
