@@ -18,6 +18,7 @@ export var form = {
 		Vue.component('vf-time', require('./form/fields/time.vue'));
 		Vue.component('vf-date', require('./form/fields/date.vue'));
 		Vue.component('vf-range', require('./form/fields/range.vue'));
+		Vue.component('vf-switch', require('./form/fields/switch.vue'));
 		Vue.use(require('vue-inputmask'));
 	}
 };
