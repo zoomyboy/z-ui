@@ -2,6 +2,7 @@
 	<div class="vf-field vf-field-textarea form-group">
 		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
 
+		<p v-if="description">{{ $description }}</p>
 		<textarea :class="[getForm().option('fieldClass'), {'ckeditor': realCkeditor}]" v-model="curValue" :placeholder="label" ref="ta"></textarea>
 
 		<div v-if="help != ''">
@@ -56,6 +57,10 @@
 			ckeditor: {
 				default: false,
 				type: Boolean
+			},
+			description: {
+				default: false,
+				type: String
 			}
 		},
 		methods: {
