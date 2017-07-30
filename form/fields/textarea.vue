@@ -59,8 +59,7 @@
 				type: Boolean
 			},
 			description: {
-				default: false,
-				type: String
+				default: ''
 			}
 		},
 		methods: {
