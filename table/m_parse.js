@@ -32,3 +32,4 @@ function parseBoolean(value, vm, heading) {
 function parseString(value) {
 	return value;
 }
+

@@ -32,6 +32,15 @@
 	require('bootstrap');
 
 	export default {
+		data: function() {
+			return {
+				isField: true,
+				curValue: '',
+				error: false,
+				id: '',
+				editorInstance: false
+			}
+		},
 		props: {
 			label: {
 				default: false,
@@ -67,9 +76,38 @@
 				return this.curValue;
 			},
 			setValue: function(newVal) {
+				var vm = this;
+
 				this.curValue = newVal;
+
+				var i = this.getEditorInstance();
+				window.setTimeout(function() {
+					i.setData(newVal);
+					$('#'+vm.id).trigger('change');
+				});
 			},
-			getForm: require('../methods/get-form.js')
+			getForm: require('../methods/get-form.js'),
+			storeId: function() {
+				this.id = Math.random().toString(36).replace(/[^a-z]+/g, '')
+				+ Math.random().toString(36).replace(/[^a-z]+/g, '');
+			},
+			getEditorInstance: function() {
+				var vm = this;
+
+				if (this.editorInstance !== false) {
+					return this.editorInstance;
+				}
+
+				var ck = window.CKEDITOR.replace(this.id);
+				ck.on('change', function() {
+					ck.updateElement();
+					$('#'+vm.id).trigger('change');
+					vm.curValue = $('#'+vm.id).val();
+				});
+
+				this.editorInstance = ck;
+				return ck;
+			}
 		},
 		watch: {
 			value: function(newVal) {
@@ -82,30 +120,28 @@
 			},
 			realCkeditor: function() {
 				return this.ckeditor || this.getForm().option('ckeditor');
-			},
-			id: function() {
-				return Math.random().toString(36).replace(/[^a-z]+/g, '')
-				+ Math.random().toString(36).replace(/[^a-z]+/g, '');
-			}
-		},
-		data: function() {
-			return {
-				isField: true,
-				curValue: '',
-				error: false
 			}
 		},
 		mounted: function() {
 			var vm = this;
+
 			this.curValue = this.value;
+			this.storeId();
+
+			if (this.realCkeditor) {
+
+				$(this.$refs.ta).attr('id', this.id);
+
+				var i = this.getEditorInstance();
+			}
 
 			this.$events.listen('model-loaded', function(form) {
-				if (form == vm.getForm()) {
-					vm.getForm().requireValue(vm.name);
-				}
+				vm.getEditorInstance().on('instanceReady', function() {
+					if (form == vm.getForm()) {
+						vm.getForm().requireValue(vm.name);
+					}
+				});
 			});
-
-			var vm = this;
 
 			this.$on('parseError', function(error) {
 				vm.error = error;
@@ -118,18 +154,6 @@
 			$(this.$refs.addon).find('.input-help').tooltip();
 			$(this.$refs.addon).find('.input-info').tooltip();
 
-			if (this.realCkeditor) {
-				var id = this.id;
-
-				$(this.$refs.ta).attr('id', id);
-
-				var ck = window.CKEDITOR.replace(id);
-				ck.on('change', function() {
-					ck.updateElement();
-					$('#'+id).trigger('change');
-					vm.setValue($('#'+id).val());
-				});
-			}
 		}
 	};
 </script>

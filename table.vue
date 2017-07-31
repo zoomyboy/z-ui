@@ -12,7 +12,7 @@
 		</thead>
 		<tbody>
 			<tr v-for="row in data">
-				<td v-for="heading in parsedHeadings" v-html="parse(getData(row, heading.data), heading)"></td>
+				<td v-for="heading in parsedHeadings" v-html="parse(getData(row, heading), heading)"></td>
 				<td v-if="!noactions" class="action-cell">
 					<vf-form :msg="deletemsg" :action="'/api/'+controller+'/'+row.id" method="delete" ajax confirm="Wollen Sie diesen Eintrag wirklich löschen?">
 						<div class="btn-group table-btn-group">

@@ -3,7 +3,10 @@ var to = require('to-case');
 import merge from 'merge';
 
 export default function(row, field) {
-	return getValues(this, row, field);
+	if (field.type == 'Callback') {
+		return this.$emit('getOwner', row);
+	}
+	return getValues(this, row, field.data);
 }
 
 function getValues(instance, row, field) {
