@@ -93,6 +93,7 @@
 				this.curValue = !this.curValue;
 
 				this.$events.fire('vf-checkbox-change', this.name, this.curValue);
+				this.$events.fire('vf-checkbox-change-'+this.name, this.curValue);
 			},
 			setValue: function(value) {
 				this.curValue = value;

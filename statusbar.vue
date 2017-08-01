@@ -1,7 +1,7 @@
 <template>
 	<div :class="['formStatusBar', {'container-fluid': container === true}, 'layout-'+layout]" :style="{top: top+'px'}">
 		<transition-group tag="ul" name="statusbaritem">
-			<statusbaritem v-for="item in items" :layout="layout" :status="item.status" :messages="item.messages" :key="item" class="statusbaritem-item"></statusbaritem>
+			<statusbaritem v-for="(item, ind) in items" :layout="layout" :status="item.status" :messages="item.messages" :key="ind" class="statusbaritem-item"></statusbaritem>
 		</transition-group>
 	</div>
 </template>

@@ -1,11 +1,13 @@
 <template>
 	<div id="page-heading" :class="['clearfix', {'line': line === true, 'small': small === true}]">
-		<div class="col-xs-12">
-			<div class="title" v-if="innerTitle != ''">
-				{{ innerTitle }}
-			</div>
-			<div class="subtitle" v-if="innerSubtitle != ''">
-				{{ innerSubtitle }}
+		<div >
+			<div class="col-xs-12">
+				<div :class="['title', {'container': container == true}]" v-if="innerTitle != ''">
+					{{ innerTitle }}
+				</div>
+				<div :class="['subtitle', {'container': container == true}]" v-if="innerSubtitle != ''">
+					{{ innerSubtitle }}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -51,6 +53,10 @@
 				type: Boolean
 			},
 			small: {
+				type: Boolean,
+				default: false
+			},
+			container: {
 				type: Boolean,
 				default: false
 			}
