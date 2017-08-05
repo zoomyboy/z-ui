@@ -1,7 +1,7 @@
 <template>
 	<div class="vf-field-checkboxes-wrapper" ref="checkboxeswrapper">
 		<span class="checkboxes-label">{{ label }}</span>
-		<div class="vf-field-checkboxes" v-for="(cb, ind) in items">
+		<div class="vf-field-checkboxes" v-for="(cb, ind) in realItems">
 			<div :class="['checkboxes-check', {'active': isActive(ind)}]" @click="toggle(ind)">
 				<span v-if="isActive(ind)" class="fa fa-check"></span>
 			</div>
@@ -88,7 +88,7 @@
 			},
 			url: {
 				type: String,
-				required: true
+				required: false
 			},
 			itemlabel: {
 				default: 'title',
@@ -99,6 +99,9 @@
 				default: '',
 				required: false,
 				type: String
+			},
+			items: {
+				default: false
 			}
 		},
 		methods: {
@@ -116,7 +119,7 @@
 			},
 			toggle: function(ind) {
 				var vm = this;
-				var item = this.items[ind];
+				var item = this.realItems[ind];
 
 				if (this.isActive(ind)) {
 					this.curValue = this.curValue.filter(function(c) {
@@ -125,9 +128,12 @@
 				} else {
 					this.curValue.push(item.id);
 				}
+
+				this.$events.fire('vf-checkboxes-change', this.curValue, this.name);
+				this.$events.fire('vf-checkboxes-change-'+this.name, this.curValue);
 			},
 			isActive: function(ind) {
-				var item = this.items[ind];
+				var item = this.realItems[ind];
 				return this.curValue.find(function(c) {
 					return c == item.id;
 				}) != undefined;
@@ -144,7 +150,7 @@
 				isField: true,
 				curValue: function() {return [];},
 				error: false,
-				items: false
+				realItems: false
 			}
 		},
 		mounted: function() {
@@ -158,13 +164,21 @@
 				return item;
 			});
 
-			axios.get(this.url).then(function(res) {
-				vm.items = res.data;
+			if (this.items !== false) {
+				vm.realItems = this.items;
 
 				vm.$nextTick(function() {
 					$(vm.$refs.checkboxeswrapper).find('.badge').tooltip({html: true});
 				});
-			});
+			} else {
+				axios.get(this.url).then(function(res) {
+					vm.realItems = res.data;
+
+					vm.$nextTick(function() {
+						$(vm.$refs.checkboxeswrapper).find('.badge').tooltip({html: true});
+					});
+				});
+			}
 
 			this.$on('parseError', function(error) {
 				vm.error = error;
