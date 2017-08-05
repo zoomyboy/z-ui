@@ -26,6 +26,12 @@ function getModelProp(model, name) {
 		var after = name.slice(name.indexOf(']')+1);
 		return getModelProp(model[erstername], inner + after);
 	} else {
-		return model[name];
+		if (model[name] != undefined) {
+			return model[name];
+		} else if (model[to.snake(name)] != undefined) {
+			return model[to.snake(name)];
+		} else {
+			return undefined;
+		}
 	}
 }

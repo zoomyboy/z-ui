@@ -284,7 +284,6 @@
 			vm.$events.listen('cleanFormErrors', function(error) {
 				vm.error = false;
 			});
-
 		}
 	};
 </script>
