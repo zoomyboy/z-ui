@@ -4,7 +4,7 @@ export default function(name) {
 	var vm = this;
 
 	if (vm.model == false) {return;}
-
+	
 	var val = getModelProp(vm.model, name);
 	if (val == undefined) {
 		return;

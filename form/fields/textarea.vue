@@ -76,6 +76,7 @@
 				return this.curValue;
 			},
 			setValue: function(newVal) {
+				console.log('value set');
 				var vm = this;
 
 				this.curValue = newVal;
@@ -111,6 +112,7 @@
 		},
 		watch: {
 			value: function(newVal) {
+				console.log('IOIO');
 				this.setValue(newVal);
 			}
 		},
@@ -125,7 +127,6 @@
 		mounted: function() {
 			var vm = this;
 
-			this.curValue = this.value;
 			this.storeId();
 
 			if (this.realCkeditor) {
@@ -133,9 +134,18 @@
 				$(this.$refs.ta).attr('id', this.id);
 
 				var i = this.getEditorInstance();
+
+				i.on('instanceReady', function() {
+					vm.getForm().requireValue(vm.name);
+				});
 			}
 
+
 			this.$events.listen('model-loaded', function(form) {
+				if (form == vm.getForm()) {
+					vm.getForm().requireValue(vm.name);
+				}
+
 				vm.getEditorInstance().on('instanceReady', function() {
 					if (form == vm.getForm()) {
 						vm.getForm().requireValue(vm.name);
