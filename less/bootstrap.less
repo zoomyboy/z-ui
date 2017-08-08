@@ -59,22 +59,40 @@
 	max-width: 250px;
 }
 
-.margin-bottom-xs {
-	margin-bottom: 5px;
+.margin-direction(@dir) {
+	.margin-@{dir}-xs {
+		margin-@{dir}: 5px;
+	}
+
+	.margin-@{dir}-sm {
+		margin-@{dir}: 10px;
+	}
+
+	.margin-@{dir}-md {
+		margin-@{dir}: 20px;
+	}
+
+	.margin-@{dir}-lg {
+		margin-@{dir}: 40px;
+	}
+
+	.margin-@{dir}-xl {
+		margin-@{dir}: 80px;
+	}
 }
 
-.margin-bottom-sm {
-	margin-bottom: 10px;
+//Disable border radius for Buttons - e.g. in sweetalert confirm Button groups
+//that are directly connected with no margin in between
+.no-right-border-radius {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+}
+.no-left-border-radius {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
 }
 
-.margin-bottom-md {
-	margin-bottom: 20px;
-}
-
-.margin-bottom-lg {
-	margin-bottom: 40px;
-}
-
-.margin-bottom-xl {
-	margin-bottom: 80px;
-}
+.margin-direction(top);
+.margin-direction(left);
+.margin-direction(right);
+.margin-direction(bottom);

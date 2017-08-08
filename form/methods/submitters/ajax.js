@@ -12,8 +12,8 @@ export default {
 				cancelButtonColor: '#d33',
 				confirmButtonText: 'Ja, löschen!',
 				cancelButtonText: 'Nein danke!',
-				confirmButtonClass: 'btn btn-success',
-				cancelButtonClass: 'btn btn-danger',
+				confirmButtonClass: 'btn btn-success no-right-border-radius',
+				cancelButtonClass: 'btn btn-danger no-left-border-radius',
 				buttonsStyling: false
 			}).then(function () {
 				askSubmitButton(vm, data);

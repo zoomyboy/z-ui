@@ -8,7 +8,12 @@ function getField(instance, value) {
 	if (!instance)
 		return false;
 
-	if (instance.hasOwnProperty('isField') && instance.isField && instance.$props.name == dotToArray(value)) {
+	if (
+		(
+			(instance.hasOwnProperty('isField') && instance.isField)
+			|| (instance.hasOwnProperty('isSubmit') && instance.isSubmit)
+		) && instance.$props.name == dotToArray(value) 
+	) {
 		return instance;
 	}
 

@@ -1,5 +1,5 @@
 <template>
-	<div :class="['btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-group-item']">
+	<div :class="classes">
 		<router-link v-if="hasRight && route != false" :to="{name: route, params: {id: (model) ? model.id : undefined}}" :target="target"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
 		<a v-if="hasRight && href != false" :href="href" :target="target"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></a>
 	</div>
@@ -7,17 +7,18 @@
 
 <style lang="less">
 	@import '~uiStyle';
-
-	.btn-v-link {
-		display: none;
-		.btn-group > & {
-			display: inline-block;
-			float: none;
+	.cp-link {
+		padding: 0;
+		a {
+			color: white;
+			padding: 6px 12px;
+			line-height: 20px;
+			height: 32px;
+			display: block;
+			&:hover {
+				text-decoration: none;
+			}
 		}
-	}
-
-	.btn-group-item > a {
-		color: #fff;
 	}
 </style>
 
@@ -74,6 +75,9 @@
 				}
 
 				return this.icon;
+			},
+			classes: function() {
+				return ['cp-link', 'btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-group-item'];
 			},
 			hasRight: function() {
 				return this.$user == undefined || this.right == undefined || this.$user.hasRight(this.right);
