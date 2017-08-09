@@ -32,6 +32,7 @@
 				opacity: 0.6;
 			}
 			.vf-field-switch-container {
+				cursor: pointer;
 				box-shadow: inset 0px 0px 4px rgba(0,0,0,0.7);
 				border: @switch-bg solid 2px;
 				flex: 0 1 80px;
