@@ -59,27 +59,72 @@
 	max-width: 250px;
 }
 
-.margin-direction(@dir) {
-	.margin-@{dir}-xs {
-		margin-@{dir}: 5px;
+.prop-direction(@dir, @prop) {
+	.@{prop}-@{dir}-null {
+		@{prop}-@{dir}: 0 !important;
+	}
+	.@{prop}-@{dir}-xs {
+		@{prop}-@{dir}: 5px !important;
 	}
 
-	.margin-@{dir}-sm {
-		margin-@{dir}: 10px;
+	.@{prop}-@{dir}-sm {
+		@{prop}-@{dir}: 10px !important;
 	}
 
-	.margin-@{dir}-md {
-		margin-@{dir}: 20px;
+	.@{prop}-@{dir}-md {
+		@{prop}-@{dir}: 20px !important;
 	}
 
-	.margin-@{dir}-lg {
-		margin-@{dir}: 40px;
+	.@{prop}-@{dir}-lg {
+		@{prop}-@{dir}: 40px !important;
 	}
 
-	.margin-@{dir}-xl {
-		margin-@{dir}: 80px;
+	.@{prop}-@{dir}-xl {
+		@{prop}-@{dir}: 80px !important;
 	}
 }
+
+.prop-global(@prop) {
+	.@{prop}-null {
+		@{prop}: 0 !important;
+	}
+	.@{prop}-xs {
+		@{prop}: 5px !important;
+	}
+
+	.@{prop}-sm {
+		@{prop}: 10px !important;
+	}
+
+	.@{prop}-md {
+		@{prop}: 20px !important;
+	}
+
+	.@{prop}-lg {
+		@{prop}: 40px !important;
+	}
+
+	.@{prop}-xl {
+		@{prop}: 80px !important;
+	}
+}
+
+.prop-direction(top, margin);
+.prop-direction(left, margin);
+.prop-direction(right, margin);
+.prop-direction(bottom, margin);
+.prop-direction(top, padding);
+.prop-direction(left, padding);
+.prop-direction(right, padding);
+.prop-direction(bottom, padding);
+.prop-global(top);
+.prop-global(left);
+.prop-global(right);
+.prop-global(bottom);
+.prop-global(top);
+.prop-global(left);
+.prop-global(right);
+.prop-global(bottom);
 
 //Disable border radius for Buttons - e.g. in sweetalert confirm Button groups
 //that are directly connected with no margin in between
@@ -92,7 +137,3 @@
 	border-top-left-radius: 0;
 }
 
-.margin-direction(top);
-.margin-direction(left);
-.margin-direction(right);
-.margin-direction(bottom);
