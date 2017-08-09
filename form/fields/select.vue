@@ -194,8 +194,8 @@
 					}
 					if (vm.valueurl) {
 						axios.get(vm.valueurl).then(function(defaultret) {
-							if (defaultret.data[idprop] != undefined) {
-								vm.curValue = defaultret.data[idprop];
+							if (defaultret.data[vm.idprop] != undefined) {
+								vm.curValue = defaultret.data[vm.idprop];
 							}
 						});
 					}
