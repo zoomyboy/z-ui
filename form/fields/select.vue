@@ -216,7 +216,11 @@
 			listen: function() {
 				var vm = this;
 
-				if (vm.value) {
+				if (vm.value && typeof vm.value == 'object') {
+					//Wenn man als Value ein objekt - z.B ein eloquent model übergeben hat, wird der Value auf die ID des Models gesetzt. Ist z.B. bei BelongsTo-Relationen sinnvoll
+					vm.curValue = vm.value.id;
+				}
+				if (vm.value && typeof vm.value != 'object') {
 					vm.curValue = vm.value;
 				}
 
@@ -255,16 +259,6 @@
 		},
 		mounted: function() {
 			var vm = this;
-
-			if (typeof this.value == "object" && this.value != null) {
-				this.curValue = this.value.map(function(item) {
-					if (typeof item == 'object') {
-						return item[idprop];
-					}
-
-					return item;
-				});
-			}
 			
 			var $select = $(vm.$refs.selectField);
 			var $option = $('<option></option>');
