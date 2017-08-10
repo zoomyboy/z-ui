@@ -83,6 +83,9 @@
 		},
 		methods: {
 			getValue: function() {
+				if (this.curValue == '') {
+					return null;
+				}
 				return moment(this.curValue, 'DD.MM.YYYYY').format('YYYY-MM-DD');
 			},
 			setValue: function(newVal) {
