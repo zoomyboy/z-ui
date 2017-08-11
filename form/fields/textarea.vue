@@ -82,10 +82,12 @@
 				this.curValue = newVal;
 
 				var i = this.getEditorInstance();
-				window.setTimeout(function() {
-					i.setData(newVal);
-					$('#'+vm.id).trigger('change');
-				});
+				if (i !== false) {
+					window.setTimeout(function() {
+						i.setData(newVal);
+						$('#'+vm.id).trigger('change');
+					});
+				}
 			},
 			getForm: require('../methods/get-form.js'),
 			storeId: function() {
@@ -98,6 +100,8 @@
 				if (this.editorInstance !== false) {
 					return this.editorInstance;
 				}
+
+				if (!window.CKEDITOR) {return false;}
 
 				var ck = window.CKEDITOR.replace(this.id);
 				ck.on('change', function() {
@@ -135,9 +139,11 @@
 
 				var i = this.getEditorInstance();
 
-				i.on('instanceReady', function() {
-					vm.getForm().requireValue(vm.name);
-				});
+				if (i !== false) {
+					i.on('instanceReady', function() {
+						vm.getForm().requireValue(vm.name);
+					});
+				}
 			}
 
 
@@ -146,11 +152,13 @@
 					vm.getForm().requireValue(vm.name);
 				}
 
-				vm.getEditorInstance().on('instanceReady', function() {
-					if (form == vm.getForm()) {
-						vm.getForm().requireValue(vm.name);
-					}
-				});
+				if (vm.getEditorInstance() !== false) {
+					vm.getEditorInstance().on('instanceReady', function() {
+						if (form == vm.getForm()) {
+							vm.getForm().requireValue(vm.name);
+						}
+					});
+				}
 			});
 
 			this.$on('parseError', function(error) {
