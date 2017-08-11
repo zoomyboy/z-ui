@@ -9,6 +9,7 @@ export var form = {
 		require('es6-promise').polyfill();
 		Vue.component('vf-form',require('./form/form/form.vue'));
 		Vue.component('vf-text', require('./form/fields/text.vue'));
+		Vue.component('vf-number', require('./form/fields/number.vue'));
 		Vue.component('vf-textarea', require('./form/fields/textarea.vue'));
 		Vue.component('vf-password', require('./form/fields/password.vue'));
 		Vue.component('vf-checkbox', require('./form/fields/checkbox.vue'));
