@@ -89,7 +89,15 @@
 				return moment(this.curValue, 'DD.MM.YYYYY').format('YYYY-MM-DD');
 			},
 			setValue: function(newVal) {
-				this.curValue = newVal;
+				if (newVal.match('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')) {
+					this.curValue = newVal;
+					return;
+				}
+
+				if (newVal.match('^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$')) {
+					this.curValue = moment(newVal, 'YYYY-MM-DD HH:mm:ss').format('DD.MM.YYYY');
+					return;
+				}
 			},
 			getForm: require('../methods/get-form.js')
 		},
