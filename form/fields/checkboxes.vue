@@ -25,6 +25,7 @@
 	}
 	.vf-field-checkboxes {
 		margin: 3px 0;
+		font-size: @font-size-base;
 		.badge {
 			display: inline-block !important;
 		}
