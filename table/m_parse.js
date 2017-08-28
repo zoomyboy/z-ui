@@ -4,6 +4,11 @@ export default function(value, heading, vm) {
 	if (heading.type == undefined) {
 		return parseString(value);
 	}
+
+	if (heading.type == 'callback') {
+		return value;
+	}
+
 	return eval('parse' + ucfirst(heading.type) + '(value, vm, heading);');
 }
 
@@ -33,3 +38,10 @@ function parseString(value) {
 	return value;
 }
 
+function parseImage(value, vm, heading) {
+	var options = vm.getTable(vm).opts;
+
+	var width = (heading.width == undefined) ? options.imageWidth : heading.width;
+
+	return '<img src="'+value+'" width="'+width+'">';
+}

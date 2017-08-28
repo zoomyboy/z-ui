@@ -6,6 +6,7 @@ export default function() {
 			'string': ['Nein', 'Ja'],
 		},
 		booleanIconType: 'font-awesome',
+		imageWidth: 100
 	};
 
 	return options;

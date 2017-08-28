@@ -1,10 +1,12 @@
 var to = require('to-case');
+var ucfirst = require('ucfirst');
 
 import merge from 'merge';
 
 export default function(row, field) {
-	if (field.type == 'Callback') {
-		return this.$emit('getOwner', row);
+	if (field.type == 'callback') {
+		var value = parseValueAndName(row, field.data);
+		return eval('this.$parent.get'+ucfirst(field.data)+'Value(value, row, field)');
 	}
 	return getValues(this, row, field.data);
 }

@@ -21,6 +21,7 @@ export var form = {
 		Vue.component('vf-date', require('./form/fields/date.vue'));
 		Vue.component('vf-range', require('./form/fields/range.vue'));
 		Vue.component('vf-switch', require('./form/fields/switch.vue'));
+		Vue.component('vf-file', require('./form/fields/file.vue'));
 		Vue.use(require('vue-inputmask'));
 	}
 };
