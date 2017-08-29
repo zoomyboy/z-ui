@@ -1,5 +1,5 @@
 <template>
-	<div class="vf-field vf-field-file form-group">
+	<div ref="wrapper" class="vf-field vf-field-file form-group">
 		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
 
 		<input ref="input" :name="name" type="file" :class="getForm().option('fieldClass')" >
@@ -36,7 +36,7 @@
 		data: function() {
 			return {
 				isField: true,
-				curValue: '',
+				curValue: [],
 				error: false
 			}
 		},
@@ -49,7 +49,14 @@
 				required: true,
 			},
 			value: {
-				default: '',
+				default: function() {
+					return [];
+				},
+				type: Array
+			},
+			uploadurl: {
+				required: false,
+				default: '/api/image',
 				type: String
 			}
 		},
@@ -60,7 +67,16 @@
 			setValue: function(newVal) {
 				this.curValue = newVal;
 			},
-			getForm: require('../methods/get-form.js')
+			getForm: require('../methods/get-form.js'),
+			ajaxHeaders: function() {
+				var ret = {};
+
+				if (typeof(window.Laravel != undefined)) {
+					ret['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
+				}
+
+				return ret;
+			}
 		},
 		watch: {
 			value: function(newVal) {
@@ -77,8 +93,6 @@
 				}
 			});
 
-			var vm = this;
-
 			this.$on('parseError', function(error) {
 				vm.error = error;
 			});
@@ -86,9 +100,38 @@
 			vm.$events.listen('cleanFormErrors', function(error) {
 				vm.error = false;
 			});
-			console.log(this.$refs);
 
-			$(this.$refs.input).fileinput();
+			$(this.$refs.input).fileinput({
+				uploadUrl: vm.uploadurl,
+				uploadExtraData: function(previewId, index) {
+					return {};
+				},
+				ajaxSettings: {headers: vm.ajaxHeaders()},
+				ajaxDeleteSettings: {headers: vm.ajaxHeaders()}
+			});
+
+			$(this.$refs.input).on('fileuploaded', function(event, data, previewId, index) {
+				var current = vm.getValue();
+
+				if (typeof current == 'string' && current.length == 0) {
+					//No values have been stored yet - store file as first value
+					vm.setValue({'image': data.response.initialPreviewConfig[0].key});
+				} else {
+					current.push({'image': data.response.initialPreviewConfig[0].key});
+					vm.setValue(current);
+				}
+			}).on('filedeleted', function(event, key, jqXHR, data) {
+				var current = vm.getValue();
+
+				vm.setValue(current.filter(function(file) {
+					return file != key;
+				}));
+			});
+
+			$(this.$refs.wrapper).find('.fileinput-upload').click(function(e) {
+				e.preventDefault();
+				$(vm.$refs.input).fileinput('upload');
+			});
 		}
 	};
 </script>
