@@ -34,6 +34,25 @@ function parseBoolean(value, vm, heading) {
 		return boolOptions[value];
 	}
 }
+
+function parseIcon(value, vm, heading) {
+	var icon = heading.icons.filter(function(icon) {
+		return icon.value == value;
+	});
+
+	if (icon.length == 0) {
+		return '';
+	} else {
+		icon = icon[0];
+	}
+
+	value = (value == '0' || value == 'false' || !value) ? 0 : 1;
+
+	var color = (typeof icon.color == undefined) ? black : icon.color;
+
+	return '<span class="fa fa-'+icon.icon+'" style="color: '+color+';"></span>';
+}
+
 function parseString(value) {
 	return value;
 }
