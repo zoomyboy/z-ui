@@ -60,12 +60,27 @@
 				type: String
 			}
 		},
+		computed: {
+			preview: function() {
+				console.log(this.curValue);
+			}
+		},
 		methods: {
 			getValue: function() {
 				return this.curValue;
 			},
 			setValue: function(newVal) {
 				this.curValue = newVal;
+
+				var preview = [];
+
+				this.curValue.forEach(function(file) {
+					preview.push('<img src="/image/'+file.image.id+'" class="file-preview-image">');
+				});
+
+				$(this.$refs.input).fileinput('refresh', {
+					initialPreview: preview
+				});
 			},
 			getForm: require('../methods/get-form.js'),
 			ajaxHeaders: function() {
@@ -81,6 +96,7 @@
 		watch: {
 			value: function(newVal) {
 				this.setValue(newVal);
+
 			}
 		},
 		mounted: function() {
@@ -107,7 +123,8 @@
 					return {};
 				},
 				ajaxSettings: {headers: vm.ajaxHeaders()},
-				ajaxDeleteSettings: {headers: vm.ajaxHeaders()}
+				ajaxDeleteSettings: {headers: vm.ajaxHeaders()},
+				initialPreview: vm.preview
 			});
 
 			$(this.$refs.input).on('fileuploaded', function(event, data, previewId, index) {
@@ -115,10 +132,10 @@
 
 				if (typeof current == 'string' && current.length == 0) {
 					//No values have been stored yet - store file as first value
-					vm.setValue({'image': data.response.initialPreviewConfig[0].key});
+					vm.curValue = {'image': data.response.initialPreviewConfig[0].key};
 				} else {
 					current.push({'image': data.response.initialPreviewConfig[0].key});
-					vm.setValue(current);
+					vm.curValue = current;
 				}
 			}).on('filedeleted', function(event, key, jqXHR, data) {
 				var current = vm.getValue();
