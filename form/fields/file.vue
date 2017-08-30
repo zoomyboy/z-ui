@@ -69,17 +69,27 @@
 			getValue: function() {
 				return this.curValue;
 			},
-			setValue: function(newVal) {
+			setValue: function(newVal, oldVal) {
 				this.curValue = newVal;
 
 				var preview = [];
+				var previewConfig = [];
 
 				this.curValue.forEach(function(file) {
 					preview.push('<img src="/image/'+file.image.id+'" class="file-preview-image">');
+					previewConfig.push({
+						'type': 'image',
+						'key': file.image.id,
+						'url': '/api/image/'+file.image.id,
+						'extra': {
+							'_method': 'delete'
+						}
+					});
 				});
 
 				$(this.$refs.input).fileinput('refresh', {
-					initialPreview: preview
+					initialPreview: preview,
+					initialPreviewConfig: previewConfig
 				});
 			},
 			getForm: require('../methods/get-form.js'),
@@ -96,12 +106,10 @@
 		watch: {
 			value: function(newVal) {
 				this.setValue(newVal);
-
 			}
 		},
 		mounted: function() {
 			var vm = this;
-			this.curValue = this.value;
 
 			this.$events.listen('model-loaded', function(form) {
 				if (form == vm.getForm()) {
@@ -128,21 +136,11 @@
 			});
 
 			$(this.$refs.input).on('fileuploaded', function(event, data, previewId, index) {
-				var current = vm.getValue();
-
-				if (typeof current == 'string' && current.length == 0) {
-					//No values have been stored yet - store file as first value
-					vm.curValue = {'image': data.response.initialPreviewConfig[0].key};
-				} else {
-					current.push({'image': data.response.initialPreviewConfig[0].key});
-					vm.curValue = current;
-				}
+				vm.curValue.push(data.response.initialPreviewConfig[0].key);
 			}).on('filedeleted', function(event, key, jqXHR, data) {
-				var current = vm.getValue();
-
-				vm.setValue(current.filter(function(file) {
+				vm.curValue = vm.curValue.filter(function(file) {
 					return file != key;
-				}));
+				});
 			});
 
 			$(this.$refs.wrapper).find('.fileinput-upload').click(function(e) {
