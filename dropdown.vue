@@ -1,7 +1,7 @@
 <template>
 	<div class="dropdown" ref="container">
 		<div class="dropdown-toggle" type="button" data-toggle="dropdown">
-			{{ realTitle }} <span :class="['fa', caret]"></span>
+			<span v-if="beforeclass" :class="beforeclass"></span> {{ realTitle }} <span :class="['fa', caret]"></span>
 		</div>
 		<ul :class="['dropdown-menu', 'dropdown-menu-'+align]">
 			<slot></slot>
@@ -10,7 +10,6 @@
 </template>
 
 <style lang="less">
-
 </style>
 
 <script>
@@ -29,6 +28,10 @@
 			},
 			align: {
 				default: 'left'
+			},
+			beforeclass: {
+				default: '',
+				type: String
 			}
 		},
 		computed: {
