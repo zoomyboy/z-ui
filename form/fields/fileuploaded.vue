@@ -1,0 +1,45 @@
+<template>
+	<div class="vf-field-child vf-field-file-child margin-top-sm margin-bottom-sm">
+		<img :src="data.url" ref="preview" class="preview img-thumbnail img-responsive">
+		<span title="Löschen" @click="del" class="delete-button fa fa-close"></span>
+	</div>
+</template>
+
+<style lang="less">
+	.vf-field-child.vf-field-file-child {
+		position: relative;
+		.delete-button {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin-top: 14px;
+			margin-right: 14px;
+			font-size: 20px;
+			color: white;
+			cursor: pointer;
+		}
+	}
+</style>
+
+<script>
+	export default {
+		data: function() {
+			return  {
+
+			};
+		},
+		props: {
+			data: {
+				required: true
+			},
+			k: {
+				required: true
+			}
+		},
+		methods: {
+			del: function() {
+				this.$emit('deleteuploaded', this.data);
+			}
+		}
+	}
+</script>

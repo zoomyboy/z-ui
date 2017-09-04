@@ -2,42 +2,39 @@
 	<div ref="wrapper" class="vf-field vf-field-file form-group">
 		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
 
-		<input ref="input" :name="name" type="file" :class="getForm().option('fieldClass')" >
+		<div class="row">
+			<div class="col-sm-4" v-for="(file, ind) in curValue">
+				<fileuploaded :k="ind" v-on:deleteuploaded="deleteuploaded" :data="file"></fileuploaded>
+			</div>
+			<div class="col-sm-4" v-for="(file, ind) in queue">
+				<filepreview :k="ind" v-on:deletepreview="deletepreview" :data="file"></filepreview>
+			</div>
+		</div>
+		<div class="clearfix">
+			<div class="btn-group">
+				<label class="btn btn-default btn-file">
+					Browse <input @change="processFiles" ref="input" type="file" :class="getForm().option('fieldClass')" style="display: none;" multiple>
+				</label>
+				<div v-if="queue.length != 0" @click="upload" class="btn btn-primary">Upload</div>
+			</div>
+		</div>
 
 		<span class="label label-danger" v-if="error !== false">{{ error }}</span>
 	</div>
 </template>
 
 <style lang="less">
-	@import '~uiStyle';
-	@import '~bootstrap-fileinput-npm/css/fileinput.min.css';
-	.vf-field-text {
-		input {
-			.field-focus(@field-focus);
-			height: @field-height;
-		}
-		label {
-			color: @field-label-color;
-		}
-		.input-group-addon > span {
-			cursor: pointer;
-			font-size: 14pt;
-		}
-		.input-group-addon:first-of-type {
-			border-left: 0;
-		}
-	}
+	//@import '~uiStyle';
 </style>
 
 <script>
-	require('bootstrap-fileinput-npm');
-
 	export default {
 		data: function() {
 			return {
 				isField: true,
 				curValue: [],
-				error: false
+				error: false,
+				queue: []
 			}
 		},
 		props: {
@@ -56,13 +53,8 @@
 			},
 			uploadurl: {
 				required: false,
-				default: '/api/image',
+				default: '/api/file',
 				type: String
-			}
-		},
-		computed: {
-			preview: function() {
-				console.log(this.curValue);
 			}
 		},
 		methods: {
@@ -71,36 +63,46 @@
 			},
 			setValue: function(newVal, oldVal) {
 				this.curValue = newVal;
-
-				var preview = [];
-				var previewConfig = [];
-
-				this.curValue.forEach(function(file) {
-					preview.push('<img src="/image/'+file.image.id+'" class="file-preview-image">');
-					previewConfig.push({
-						'type': 'image',
-						'key': file.image.id,
-						'url': '/api/image/'+file.image.id,
-						'extra': {
-							'_method': 'delete'
-						}
-					});
-				});
-
-				$(this.$refs.input).fileinput('refresh', {
-					initialPreview: preview,
-					initialPreviewConfig: previewConfig
-				});
 			},
 			getForm: require('../methods/get-form.js'),
-			ajaxHeaders: function() {
-				var ret = {};
-
-				if (typeof(window.Laravel != undefined)) {
-					ret['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
+			processFiles: function() {
+				for (var i = 0, f; f = this.$refs.input.files[i]; i++) {
+					this.queue.push({uuid: Math.random().toString(36).substr(2, 5) + Math.random().toString(36).substr(2, 5), data: f});
 				}
+			},
+			upload: function() {
+				var vm = this;
 
-				return ret;
+				vm.queue.forEach(function(file, index) {
+					var data = new FormData();
+					data.append('files', file.data, file.data.fileName);
+					axios.post(vm.uploadurl, data, {
+						headers: {
+							'accept': 'application/json',
+							'Content-Type': 'multipart/form-data'
+						}
+					}).then(function(res) {
+						vm.curValue.push(res.data);
+						vm.queue = vm.queue.filter(function(f) {
+							return file.uuid != f.uuid;
+						});
+					});
+				});
+			},
+			deleteuploaded: function(data) {
+				var vm = this;
+
+				axios.post('/api/file/'+data.id, {'_method': 'delete'}).then(function(ret) {
+					vm.curValue = vm.curValue.filter(function(file) {
+						console.log(file);
+						return data.id != file.id;
+					});
+				});
+			},
+			deletepreview: function(file) {
+				this.queue = this.queue.filter(function(f) {
+					return f.uuid != file.uuid;
+				});
 			}
 		},
 		watch: {
@@ -108,8 +110,14 @@
 				this.setValue(newVal);
 			}
 		},
+		components: {
+			filepreview: require('./filepreview.vue'),
+			fileuploaded: require('./fileuploaded.vue')
+		},
 		mounted: function() {
 			var vm = this;
+
+			this.curValue = this.value;
 
 			this.$events.listen('model-loaded', function(form) {
 				if (form == vm.getForm()) {
@@ -123,29 +131,6 @@
 
 			vm.$events.listen('cleanFormErrors', function(error) {
 				vm.error = false;
-			});
-
-			$(this.$refs.input).fileinput({
-				uploadUrl: vm.uploadurl,
-				uploadExtraData: function(previewId, index) {
-					return {};
-				},
-				ajaxSettings: {headers: vm.ajaxHeaders()},
-				ajaxDeleteSettings: {headers: vm.ajaxHeaders()},
-				initialPreview: vm.preview
-			});
-
-			$(this.$refs.input).on('fileuploaded', function(event, data, previewId, index) {
-				vm.curValue.push(data.response.initialPreviewConfig[0].key);
-			}).on('filedeleted', function(event, key, jqXHR, data) {
-				vm.curValue = vm.curValue.filter(function(file) {
-					return file != key;
-				});
-			});
-
-			$(this.$refs.wrapper).find('.fileinput-upload').click(function(e) {
-				e.preventDefault();
-				$(vm.$refs.input).fileinput('upload');
 			});
 		}
 	};
