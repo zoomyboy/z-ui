@@ -103,6 +103,9 @@
 		watch: {
 			value: function(newVal) {
 				this.setValue(newVal);
+			},
+			curValue: function(newVal, oldVal) {
+				this.$emit('change', newVal, oldVal);
 			}
 		},
 		data: function() {
