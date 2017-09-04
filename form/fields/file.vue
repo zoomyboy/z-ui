@@ -5,6 +5,7 @@
 		<div class="row">
 			<div class="col-sm-4" v-for="(file, ind) in curValue">
 				<fileuploaded :k="ind" v-on:deleteuploaded="deleteuploaded" :data="file"></fileuploaded>
+				<slot></slot>
 			</div>
 			<div class="col-sm-4" v-for="(file, ind) in queue">
 				<filepreview :k="ind" v-on:deletepreview="deletepreview" :data="file"></filepreview>
