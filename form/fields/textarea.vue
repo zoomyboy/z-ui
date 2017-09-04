@@ -90,6 +90,7 @@
 				}
 			},
 			getForm: require('../methods/get-form.js'),
+			getOption: require('../methods/m_getFormOption.js'),
 			storeId: function() {
 				this.id = Math.random().toString(36).replace(/[^a-z]+/g, '')
 				+ Math.random().toString(36).replace(/[^a-z]+/g, '');

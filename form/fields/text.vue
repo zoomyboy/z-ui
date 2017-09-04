@@ -1,8 +1,8 @@
 <template>
 	<div class="vf-field vf-field-text form-group">
-		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
+		<label v-if="getOption('formOption')" for="">{{ label }}</label>
 
-		<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons" v-mask="mask">
+		<input type="text" :class="getOption('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons" v-mask="mask">
 
 		<div v-if="hasAddons" class="input-group" ref="addon">
 			<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-mask="mask">
@@ -76,10 +76,14 @@
 			setValue: function(newVal) {
 				this.curValue = newVal;
 			},
-			getForm: require('../methods/get-form.js')
+			getForm: require('../methods/get-form.js'),
+			getOption: require('../methods/m_getFormOption.js'),
 		},
 		watch: {
-			value: function(newVal) {
+			value: function(newVal, oldVal) {
+				if (newVal != oldVal) {
+					this.$emit('change');
+				}
 				this.setValue(newVal);
 			}
 		},
@@ -115,8 +119,10 @@
 				vm.error = false;
 			});
 
-			$(this.$refs.addon).find('.input-help').tooltip();
-			$(this.$refs.addon).find('.input-info').tooltip();
+			if(typeof $.fn.tooltip == 'function') {
+				$(this.$refs.addon).find('.input-help').tooltip();
+				$(this.$refs.addon).find('.input-info').tooltip();
+			}
 		}
 	};
 </script>
