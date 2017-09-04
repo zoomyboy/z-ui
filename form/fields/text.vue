@@ -24,6 +24,7 @@
 		input {
 			.field-focus(@field-focus);
 			height: @field-height;
+    		padding: 6px 12px;
 		}
 		label {
 			color: @field-label-color;
@@ -40,6 +41,7 @@
 
 <script>
 	require('bootstrap');
+	var _ = require('lodash');
 
 	export default {
 		props: {
@@ -81,10 +83,12 @@
 		},
 		watch: {
 			value: function(newVal, oldVal) {
-				if (newVal != oldVal) {
-					this.$emit('change');
-				}
 				this.setValue(newVal);
+			},
+			curValue: function(newVal, oldVal) {
+				if (newVal != oldVal) {
+					this.$emit('change', newVal, oldVal);
+				}
 			}
 		},
 		computed: {
