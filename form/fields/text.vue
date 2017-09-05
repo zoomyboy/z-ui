@@ -1,6 +1,6 @@
 <template>
 	<div class="vf-field vf-field-text form-group">
-		<label v-if="getOption('formOption')" for="">{{ label }}</label>
+		<label v-if="getOption('showLabel') && label !== false" for="">{{ label }}</label>
 
 		<input type="text" :class="getOption('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons" v-mask="mask">
 
