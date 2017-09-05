@@ -2,6 +2,7 @@
 	<div class="vf-field-child vf-field-file-child margin-top-sm margin-bottom-sm">
 		<img :src="data.url" ref="preview" class="preview img-thumbnail img-responsive">
 		<span title="Löschen" @click="del" class="delete-button fa fa-close"></span>
+		<slot></slot>
 	</div>
 </template>
 
@@ -25,7 +26,6 @@
 	export default {
 		data: function() {
 			return  {
-
 			};
 		},
 		props: {
@@ -40,6 +40,17 @@
 			del: function() {
 				this.$emit('deleteuploaded', this.data);
 			}
+		},
+		mounted: function() {
+			var vm = this;
+
+			this.$children.forEach(function(field) {
+				if (field.isField) {
+					field.$on('change', function(newVal) {
+						vm.data[field.name] = newVal;
+					});
+				}
+			});
 		}
 	}
 </script>

@@ -2,13 +2,16 @@
 	<div ref="wrapper" class="vf-field vf-field-file form-group">
 		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
 
-		<div class="row">
-			<div class="col-sm-4" v-for="(file, ind) in curValue">
-				<fileuploaded :k="ind" v-on:deleteuploaded="deleteuploaded" :data="file"></fileuploaded>
-				<slot></slot>
-			</div>
-			<div class="col-sm-4" v-for="(file, ind) in queue">
-				<filepreview :k="ind" v-on:deletepreview="deletepreview" :data="file"></filepreview>
+		<div class="image-wrapper">
+			<div class="row">
+				<div class="col-sm-4" v-for="(file, ind) in curValue">
+					<fileuploaded :k="ind" v-on:deleteuploaded="deleteuploaded" :data="file">
+						<slot :file="file"></slot>
+					</fileuploaded>
+				</div>
+				<div class="col-sm-4" v-for="(file, ind) in queue">
+					<filepreview :k="ind" v-on:deletepreview="deletepreview" :data="file"></filepreview>
+				</div>
 			</div>
 		</div>
 		<div class="clearfix">
@@ -25,7 +28,11 @@
 </template>
 
 <style lang="less">
-	//@import '~uiStyle';
+	@import '~uiStyle';
+	.vf-field-file {
+		.image-wrapper {
+		}
+	}
 </style>
 
 <script>
