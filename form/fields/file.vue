@@ -1,17 +1,14 @@
 <template>
 	<div ref="wrapper" class="vf-field vf-field-file form-group">
 		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
-
 		<div class="image-wrapper">
-			<div class="row">
-				<div class="col-sm-4" v-for="(file, ind) in curValue">
-					<fileuploaded :k="ind" v-on:deleteuploaded="deleteuploaded" :data="file">
-						<slot :file="file"></slot>
-					</fileuploaded>
-				</div>
-				<div class="col-sm-4" v-for="(file, ind) in queue">
-					<filepreview :k="ind" v-on:deletepreview="deletepreview" :data="file"></filepreview>
-				</div>
+			<div class="col" v-for="(file, ind) in curValue">
+				<fileuploaded :k="ind" v-on:deleteuploaded="deleteuploaded" :data="file">
+					<slot :file="file"></slot>
+				</fileuploaded>
+			</div>
+			<div class="col" v-for="(file, ind) in queue">
+				<filepreview :k="ind" v-on:deletepreview="deletepreview" :data="file"></filepreview>
 			</div>
 		</div>
 		<div class="clearfix">
@@ -31,6 +28,22 @@
 	@import '~uiStyle';
 	.vf-field-file {
 		.image-wrapper {
+			margin-bottom: 10px;
+			padding: 10px;
+			border-radius: 4px;
+			border: 1px solid #ccc;
+			background-color: #fff;
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			& > .col {
+				flex: 0 0 30%;
+				border: #ccc solid 1px;
+				padding: 3px;
+				margin: 1.6666666%;
+			}
 		}
 	}
 </style>

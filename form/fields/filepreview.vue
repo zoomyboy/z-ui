@@ -1,6 +1,6 @@
 <template>
-	<div class="vf-field-child vf-field-file-child margin-top-sm margin-bottom-sm">
-		<img ref="preview" class="preview img-thumbnail img-responsive">
+	<div class="vf-field-child vf-field-file-child">
+		<img ref="preview" class="preview img-responsive">
 		<span title="Löschen" @click="del" class="delete-button fa fa-close"></span>
 	</div>
 </template>
@@ -17,6 +17,9 @@
 			font-size: 20px;
 			color: white;
 			cursor: pointer;
+		}
+		.preview {
+			margin-bottom: 8px;
 		}
 	}
 </style>
