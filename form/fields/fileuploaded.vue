@@ -53,6 +53,10 @@
 						vm.data[field.name] = newVal;
 					});
 				}
+				if (vm.data[field.name] != undefined) {
+					field.setValue(vm.data[field.name]);
+				}
+
 			});
 		}
 	}
