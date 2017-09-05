@@ -15,6 +15,7 @@
 			line-height: 20px;
 			height: 32px;
 			display: block;
+			font-size: 14px;
 			&:hover {
 				text-decoration: none;
 			}
