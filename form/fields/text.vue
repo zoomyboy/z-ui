@@ -41,7 +41,6 @@
 
 <script>
 	require('bootstrap');
-	var _ = require('lodash');
 
 	export default {
 		props: {
