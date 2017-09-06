@@ -92,6 +92,7 @@ function submit(vm, data) {
 				vm.$events.fire('messageDanger', vm.opts.texts.unauthorized, vm.statusbar);
 				break;
 			case 422:
+			case 423:	//Locked Status code - e.g. if user entered a wrong password too often
 				var globalErr = vm.opts.texts.validationFailed;
 				Object.keys(error.response.data).forEach((k) => {
 					var field = vm.getField(k);
