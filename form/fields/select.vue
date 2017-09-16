@@ -2,7 +2,7 @@
 	<div class="vf-field-select-wrapper">
 		<span class="select-label">{{ label }}</span>
 		<div>
-			<select class="vf-field-select" ref="selectField">
+			<select :name="name" class="vf-field-select" ref="selectField">
 				<option v-for="(cb, ind) in items" :value="ind" >{{ cb.valueprop }}</option>
 			</select>
 		</div>
@@ -20,6 +20,7 @@
 		margin-bottom: 15px;
 		.select-label {
 			font-weight: bold;
+			text-align: left;
 			color: @field-label-color;
 			margin-bottom: 5px;
 			display: block;
