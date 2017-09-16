@@ -170,9 +170,10 @@
 				vm.error = false;
 			});
 
-			$(this.$refs.addon).find('.input-help').tooltip();
-			$(this.$refs.addon).find('.input-info').tooltip();
-
+			if(typeof $.fn.tooltip == 'function') {
+				$(this.$refs.addon).find('.input-help').tooltip();
+				$(this.$refs.addon).find('.input-info').tooltip();
+			}
 		}
 	};
 </script>
