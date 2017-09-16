@@ -28,6 +28,7 @@
 		}
 		label {
 			color: @field-label-color;
+			text-align: left;
 		}
 		.input-group-addon > span {
 			cursor: pointer;
