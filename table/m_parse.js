@@ -1,4 +1,5 @@
 var ucfirst = require('ucfirst');
+var moment = require('moment');
 
 export default function(value, heading, vm) {
 	if (heading.type == undefined) {
@@ -63,4 +64,8 @@ function parseImage(value, vm, heading) {
 	var width = (heading.width == undefined) ? options.imageWidth : heading.width;
 
 	return '<img src="'+value+'" width="'+width+'">';
+}
+
+function parseDate(value, vm, heading) {
+	return moment(value).format('DD.MM.YYYY');
 }
