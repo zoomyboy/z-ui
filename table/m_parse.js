@@ -69,3 +69,7 @@ function parseImage(value, vm, heading) {
 function parseDate(value, vm, heading) {
 	return moment(value).format('DD.MM.YYYY');
 }
+
+function parseMoney(value, vm, heading) {
+	return value + '€';
+}
