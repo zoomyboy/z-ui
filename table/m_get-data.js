@@ -5,10 +5,18 @@ import merge from 'merge';
 
 export default function(row, field) {
 	if (field.type == 'callback') {
-		var value = parseValueAndName(row, field.data);
-		return eval('this.$parent.get'+ucfirst(field.data)+'Value(value, row, field)');
+		return getValueForCallback(row, field, this);
 	}
 	return getValues(this, row, field.data);
+}
+
+function getValueForCallback(row, field, vm) {
+	if(typeof eval('vm.get'+ucfirst(field.data)+'Attribute') === "undefined") {
+		return getValueForCallback(row, field, vm.$parent);
+	}
+
+	var value = parseValueAndName(row, field.data);
+	return eval('vm.get'+ucfirst(field.data)+'Attribute(value, row, field)');
 }
 
 function getValues(instance, row, field) {
