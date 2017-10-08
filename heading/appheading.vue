@@ -22,7 +22,7 @@
 		background: @page-heading-bg;
 		padding-top: 20px;
 		padding-bottom: 20px;
-		border-bottom: @page-heading-border solid 1px;
+    	box-shadow: 0 2px 2px -2px @page-heading-border;
 		.title {
 			font-size: 18px;
 			font-weight: 700;
