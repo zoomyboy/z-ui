@@ -1,5 +1,5 @@
 <template>
-	<table class="table table-bordered table-striped">
+	<table :class="['table', 'table-striped', {'table-bordered': border}]">
 		<thead>
 			<tr> 
 				<th v-for="heading in parsedHeadings">
@@ -87,6 +87,10 @@
 				default: function() {return [];}
 			},
 			deleteaction: {
+				type: Boolean,
+				default: true
+			},
+			border: {
 				type: Boolean,
 				default: true
 			}
