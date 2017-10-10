@@ -30,12 +30,6 @@ export var statusbar = {
 		Vue.component('statusbar', require('./statusbar.vue'));
 	}
 };
-export var table = {
-	install: function(Vue, options) {
-		Vue.component('v-link', require('./link.vue'));
-		Vue.component('v-table', require('./table.vue'));
-	}
-};
 export var link = {
 	install: function(Vue, options) {
 		Vue.component('v-link', require('./link.vue'));
