@@ -16,7 +16,15 @@
 				<td v-if="!noactions" class="action-cell">
 					<vf-form :msg="deletemsg" :action="'/api/'+controller+'/'+row.id" method="delete" ajax confirm="Wollen Sie diesen Eintrag wirklich löschen?">
 						<buttonbar :margin="false">
-							<v-link v-for="(action,ind) in actions" :key="ind" :href="row[action.href]" :icon="action.icon" :target="(action.target) ? action.target : '_SELF'" :route="action.route" :model="row"></v-link>
+							<v-link
+								v-for="(action,ind) in actions"
+								:key="ind"
+								:href="row[action.href]"
+								:icon="action.icon"
+								:target="(action.target) ? action.target : '_SELF'"
+								:route="action.route"
+								:model="row"
+							></v-link>
 							<v-link :route="controller+'.edit'" icon="pencil" :model="row"></v-link>
 							<vf-submit  icon="trash" size="xs" name="id" :value="row.id" v-if="deleteaction"><span class="fa fa-trash"></span></vf-submit>
 						</buttonbar>
