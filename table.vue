@@ -19,6 +19,8 @@
 							<v-link
 								v-for="(action,ind) in actions"
 								:key="ind"
+								v-on:event="triggerActionEvent(row, action)"
+								:event="action.event"
 								:href="row[action.href]"
 								:icon="action.icon"
 								:target="(action.target) ? action.target : '_SELF'"
@@ -124,6 +126,9 @@
 			parse: function(value, heading) {
 				var parse = require('./table/m_parse.js').default;
 				return parse(value, heading, this);
+			},
+			triggerActionEvent: function(row, action) {
+				this.$emit(action.event, row, action);
 			}
 		},
 		mounted: function() {

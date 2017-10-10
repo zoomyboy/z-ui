@@ -1,9 +1,10 @@
 <template>
 	<div :class="classes">
 		<router-link v-if="hasRight && route != false" :to="{name: route, params: {id: (model) ? model.id : undefined}}" :target="target"><span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span><slot>{{ realLabel }}</slot></router-link>
-		<a v-if="hasRight && href != false"
+		<a v-if="hasRight && (href != false || event != false)"
 			:href="href"
 			:target="target"
+	 		@click="open"
 		>
 			<span :class="['fa', 'fa-'+this.realIcon]">&nbsp;</span>
 			<slot>{{ realLabel }}</slot>
@@ -68,6 +69,18 @@
 			},
 			model: {
 				default: undefined
+			},
+			event: {
+				default: '',
+				type: String
+			}
+		},
+		methods: {
+			open: function(e) {
+				if (this.event != '') {
+					e.preventDefault();
+					this.$emit('event', this.event);
+				}
 			}
 		},
 		computed: {
