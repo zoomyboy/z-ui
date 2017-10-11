@@ -27,7 +27,13 @@
 								:route="action.route"
 								:model="row"
 							></v-link>
-							<v-link :route="controller+'.edit'" icon="pencil" :model="row"></v-link>
+							<v-link
+								:route="controller+'.edit'"
+								icon="pencil"
+								:model="row"
+								v-if="editaction"
+							>
+							</v-link>
 							<vf-submit  icon="trash" size="xs" name="id" :value="row.id" v-if="deleteaction"><span class="fa fa-trash"></span></vf-submit>
 						</buttonbar>
 					</vf-form>
@@ -89,6 +95,10 @@
 				default: function() {return [];}
 			},
 			deleteaction: {
+				type: Boolean,
+				default: true
+			},
+			editaction: {
 				type: Boolean,
 				default: true
 			},
