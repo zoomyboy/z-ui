@@ -20,7 +20,7 @@
 								v-for="(action,ind) in actions"
 								:key="ind"
 								v-on:event="triggerActionEvent(row, action)"
-								:event="action.event"
+								:event="(action.event) ? action.event : action.action"
 								:href="row[action.href]"
 								:icon="action.icon"
 								:target="(action.target) ? action.target : '_SELF'"
@@ -138,7 +138,19 @@
 				return parse(value, heading, this);
 			},
 			triggerActionEvent: function(row, action) {
-				this.$emit(action.event, row, action);
+				if (action.event) {
+					this.$emit(action.event, row, action);
+				} else if (action.action) {
+					//Handle inner action for the table
+					switch(action.action) {
+						case 'editmode':
+							this.enableEditMode(row);
+							break;
+					}
+				}
+			},
+			enableEditMode: function(row) {
+				//Todo: Enable Edit mode for row
 			}
 		},
 		mounted: function() {
