@@ -136,36 +136,3 @@
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
 }
-
-.grid-2 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 20px;
-    grid-template-rows: repeat(auto-fill, 100px);
-    min-height: calc(100vh - 10px);
-	article {
-		grid-column: ~"1 / -2";
-		grid-row: ~"1 / -1";
-	}
-	aside {
-		grid-column: -1 / -2;
-		&.rows-1 {
-			grid-row: span 1;
-		}
-		&.rows-2 {
-			grid-row: span 2;
-		}
-		&.rows-3 {
-			grid-row: span 3;
-		}
-		&.rows-4 {
-			grid-row: span 4;
-		}
-		&.rows-5 {
-			grid-row: span 5;
-		}
-		&.rows-6 {
-			grid-row: span 6;
-		}
-	}
-}
