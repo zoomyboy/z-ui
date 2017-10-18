@@ -5,7 +5,7 @@
 </template>
 
 <style lang="less">
-	@import "~uiStyle.less";
+	@import "~uiStyle";
 
 	.cp-button-bar {
 		white-space: nowrap;
