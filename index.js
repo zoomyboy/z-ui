@@ -33,7 +33,7 @@ export var statusbar = {
 export var link = {
 	install: function(Vue, options) {
 		Vue.component('v-link', require('./link.vue'));
-		Vue.component('buttonbar', require('./button-bar.vue'));
+		Vue.component('buttonbar', require('./buttonbar.vue'));
 	}
 };
 export var heading = {
