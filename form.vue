@@ -11,7 +11,7 @@
 </style>
 
 <script>
-	import defaultOptions from '../options/options'
+	import defaultOptions from './form/options/options'
 	import merge from 'merge'
 	import querystring from 'query-string';
 
@@ -100,12 +100,12 @@
 			option: function(key) {
 				return this.opts[key];
 			},
-			getData: require('./m_get-data.js').default,
-			getField: require('./m_get-field.js').default,
-			getTable: require('./m_get-table.js').default,
-			submit: require('../methods/submit.js').default,
-			getModel: require('./m_get-model.js').default,
-			requireValue: require('./m_require-value.js').default,
+			getData: require('./form/form/m_get-data.js').default,
+			getField: require('./form/form/m_get-field.js').default,
+			getTable: require('./form/form/m_get-table.js').default,
+			submit: require('./form/methods/submit.js').default,
+			getModel: require('./form/form/m_get-model.js').default,
+			requireValue: require('./form/form/m_require-value.js').default,
 			setConfirm: function(value) {
 				this.submitConfirm = {v: value};
 			},
