@@ -115,6 +115,7 @@
 		components: {
 			'w-next': require('./wizard/w-next.vue'),
 			'w-prev': require('./wizard/w-prev.vue'),
+			vfSubmit: require('./form/fields/submit.vue')
 		},
 		methods:{
 			buildNav: function() {
