@@ -2,7 +2,7 @@
 	<div class="vf-field vf-field-text form-group">
 		<label v-if="getOption('showLabel') && label !== false" for="">{{ label }}</label>
 
-		<input type="text" :class="getOption('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons" v-mask="mask">
+		<input type="text" :class="getOption('fieldClass')" v-model="curValue" :name="name" :placeholder="label" v-if="!hasAddons" v-mask="mask">
 
 		<div v-if="hasAddons" class="input-group" ref="addon">
 			<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-mask="mask">

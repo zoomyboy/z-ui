@@ -2,7 +2,7 @@
 	<div class="vf-field-checkboxes-wrapper" ref="checkboxeswrapper">
 		<span class="checkboxes-label">{{ label }}</span>
 		<div class="vf-field-checkboxes" v-for="(cb, ind) in realItems">
-			<div :class="['checkboxes-check', {'active': isActive(ind)}]" @click="toggle(ind)">
+			<div :class="['checkboxes-check', {'active': isActive(ind)}]" :id="'checkboxes-'+nameToUnderscore(name)+'-'+ind" @click="toggle(ind)">
 				<span v-if="isActive(ind)" class="fa fa-check"></span>
 			</div>
 			<span class="checkbox-label" @click.self="toggle(ind)">{{ cb[itemlabel] }}</span>
@@ -117,6 +117,9 @@
 
 					return item;
 				});
+			},
+			nameToUnderscore: function(name) {
+				return name.replace('[', '_').replace(']', '_');
 			},
 			toggle: function(ind) {
 				var vm = this;

@@ -1,6 +1,6 @@
 <template>
 	<popover :content="error" title="Etwas ist schief gelaufen" ref="popover" look="danger">
-		<button ref="button" type="submit" class="btn btn-primary btn-submit vf-field vf-field-submit" @click="setValues()"><slot>{{ label }}</slot></button>
+		<button id="submit" ref="button" type="submit" class="btn btn-primary btn-submit vf-field vf-field-submit" @click="setValues()"><slot>{{ label }}</slot></button>
 	</popover>
 </template>
 

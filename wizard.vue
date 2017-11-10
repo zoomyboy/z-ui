@@ -2,7 +2,7 @@
 	<div class="cp-wizard">
 		<ul class="nav nav-pills wizard-nav">
 			<li v-for="(title, ind) in titles" :class="['nav-item', {'active': active == ind}]" :style="{width: (100/titles.length)+'%'}">
-				<a class="nav-link" @click="activate(title.title)">
+				<a class="nav-link" @click="activate(title.title)" :id="'wizard-link-'+ind">
 					<div class="wizard-icon">{{ title.index }}</div>
 					{{ title.title }}
 				</a>

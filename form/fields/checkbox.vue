@@ -1,7 +1,7 @@
 <template>
 	<div class="vf-field-checkbox-wrapper" ref="checkboxwrapper">
 		<div class="vf-field vf-field-checkbox">
-			<div :class="['checkbox-check', {'active': curValue === true}]" @click="toggle">
+			<div :id="'checkbox-'+name" :class="['checkbox-check', {'active': curValue === true}]" @click="toggle">
 				<span v-if="curValue === true" class="fa fa-check"></span>
 			</div>
 			<span class="checkbox-label" @click.self="toggle">{{ label }}<slot></slot></span>

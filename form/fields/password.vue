@@ -2,7 +2,7 @@
 	<div class="vf-field vf-field-password form-group">
 		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
 
-		<input type="password" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons">
+		<input type="password" :name="name" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons">
 
 		<div v-if="hasAddons" class="input-group" ref="addon">
 			<input type="password" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label">
