@@ -65,6 +65,8 @@ function submit(vm, data) {
 			return;
 		}
 
+		vm.$emit('afterpersist', data);
+
 		if (ret.request.responseURL && vm.$props.follow) {
 			window.location.href = ret.request.responseURL;
 			return;
