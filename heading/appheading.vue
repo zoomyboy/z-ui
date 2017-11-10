@@ -2,11 +2,11 @@
 	<div id="page-heading" :class="['clearfix', {'line': line === true, 'small': small === true}]">
 		<div >
 			<div class="col-xs-12">
-				<div :class="['title', {'container': container == true}]" v-if="innerTitle != ''">
-					{{ innerTitle }}
+				<div :class="['title', {'container': container == true}]" v-if="title != ''">
+					{{ title }}
 				</div>
-				<div :class="['subtitle', {'container': container == true}]" v-if="innerSubtitle != ''">
-					{{ innerSubtitle }}
+				<div :class="['subtitle', {'container': container == true}]" v-if="subtitle != ''">
+					{{ subtitle }}
 				</div>
 			</div>
 		</div>
@@ -60,22 +60,6 @@
 				type: Boolean,
 				default: false
 			}
-		},
-		data: function() {
-			return {
-				innerTitle: '',
-				innerSubtitle: ''
-			};
-		},
-		mounted: function() {
-			var vm = this;
-
-			vm.$events.listen('set-heading', function(heading) {
-				vm.innerTitle = heading;
-			});
-			vm.$events.listen('set-subheading', function(subheading) {
-				vm.innerSubtitle = subheading;
-			});
 		}
 	};
 </script>
