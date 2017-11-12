@@ -19,7 +19,7 @@
 	.cp-tabs {
 		.tabs-nav {
 			padding: 0 15px;
-			margin: 10px 0;
+			margin: 0 0 10px;
 			borrder-bottom-color: @borders1;
 			& > li {
 				margin-right: 10px;

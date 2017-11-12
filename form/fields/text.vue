@@ -41,8 +41,6 @@
 </style>
 
 <script>
-	require('bootstrap');
-
 	export default {
 		props: {
 			label: {

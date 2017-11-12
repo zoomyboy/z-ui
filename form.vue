@@ -73,6 +73,9 @@
 				type: String,
 				default: undefined
 			},
+			getmodel: {
+				required: false
+			}
 		},
 		data: function() {
 			return {
@@ -118,6 +121,14 @@
 		},
 		created: function() {
 			this.getModel(this);
+		},
+		mounted: function() {
+			var vm = this;
+
+			if (vm.getmodel !== false) {
+				vm.model = vm.getmodel;
+				vm.$events.fire('model-loaded', vm);
+			}
 		}
 	}
 </script>
