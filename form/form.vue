@@ -11,7 +11,7 @@
 </style>
 
 <script>
-	import defaultOptions from './form/options/options'
+	import defaultOptions from './options/options'
 	import merge from 'merge'
 	import querystring from 'query-string';
 
@@ -103,12 +103,12 @@
 			option: function(key) {
 				return this.opts[key];
 			},
-			getData: require('./form/form/m_get-data.js').default,
-			getField: require('./form/form/m_get-field.js').default,
-			getTable: require('./form/form/m_get-table.js').default,
-			submit: require('./form/methods/submit.js').default,
-			getModel: require('./form/form/m_get-model.js').default,
-			requireValue: require('./form/form/m_require-value.js').default,
+			getData: require('./methods/get-data.js').default,
+			getField: require('./methods/get-field.js').default,
+			getTable: require('./methods/get-table.js').default,
+			submit: require('./methods/submit.js').default,
+			getModel: require('./methods/get-model.js').default,
+			requireValue: require('./methods/require-value.js').default,
 			setConfirm: function(value) {
 				this.submitConfirm = {v: value};
 			},
@@ -125,7 +125,7 @@
 		mounted: function() {
 			var vm = this;
 
-			if (vm.getmodel !== false) {
+			if (typeof vm.getmodel != "undefined") {
 				vm.model = vm.getmodel;
 				vm.$events.fire('model-loaded', vm);
 			}

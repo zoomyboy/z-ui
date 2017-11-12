@@ -5,7 +5,7 @@
 			<h3 :class="['panel-title', {'smalltitle': smalltitle}]">{{ title }}</h3>
 			<div v-if="closeable" class="close-button" @click="$emit('close')"><span class="fa fa-close"></span></div>
         </div>
-        <div class="panel-body">
+        <div ref="body" class="panel-body">
 			<div v-if="loading" class="spinner loading">
 				<div class="double-bounce1"></div>
 				<div class="double-bounce2"></div>
@@ -26,14 +26,17 @@
 			border-radius: 3px;
 			box-shadow: 0 1px 1px rgba(0,0,0,0.2);
 			background-color: #fff;
+			display: flex;
+			flex-direction: column;
+			flex: 0 0 100%;
 			.panel-heading {
+				padding: 20px;
+				flex-basis: 0;
 				border-top-left-radius: 2px;
 				border-top-right-radius: 2px;
 				height: 50px;
-				padding: 0;
 				color: #4d627b;
 				border-bottom: 1px solid rgba(0,0,0,0.1);
-				padding: 0 20px;
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
@@ -55,6 +58,11 @@
 				}
 			}
 			.panel-body {
+				min-height: 0;
+				margin: 20px;
+				position: relative;
+				padding: 0;
+				overflow: hidden;
 				.loading {
 					.double-bounce1, .double-bounce2 {
 						background: @primary;
@@ -79,6 +87,8 @@
 </style>
 
 <script>
+	const PerfectScrollbar = require('perfect-scrollbar');
+
 	export default {
 		data: function() {
 			return  {
@@ -105,9 +115,7 @@
 			}
 		},
 		mounted: function() {
-			if (this.loading) {
-				
-			}
+			var ps = new PerfectScrollbar(this.$refs.body);
 		}
 	}
 </script>

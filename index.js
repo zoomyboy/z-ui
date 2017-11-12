@@ -7,7 +7,7 @@ export var wizard = {
 export var form = {
 	install: function(Vue, options) {
 		require('es6-promise').polyfill();
-		Vue.component('vf-form',require('./form.vue'));
+		Vue.component('vf-form',require('./form/form.vue'));
 		Vue.component('vf-text', require('./form/fields/text.vue'));
 		Vue.component('vf-number', require('./form/fields/number.vue'));
 		Vue.component('vf-textarea', require('./form/fields/textarea.vue'));
@@ -32,8 +32,8 @@ export var statusbar = {
 };
 export var link = {
 	install: function(Vue, options) {
-		Vue.component('v-link', require('./link.vue'));
-		Vue.component('buttonbar', require('./buttonbar.vue'));
+		Vue.component('v-link', require('./link/link.vue'));
+		Vue.component('buttonbar', require('./link/buttonbar.vue'));
 	}
 };
 export var heading = {

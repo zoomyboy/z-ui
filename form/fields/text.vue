@@ -77,7 +77,7 @@
 				this.curValue = newVal;
 			},
 			getForm: require('../methods/get-form.js'),
-			getOption: require('../methods/m_getFormOption.js'),
+			getOption: require('../methods/get-form-option.js'),
 		},
 		watch: {
 			value: function(newVal, oldVal) {
