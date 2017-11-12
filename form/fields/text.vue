@@ -6,11 +6,11 @@
 
 		<div v-if="hasAddons" class="input-group" ref="addon">
 			<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-mask="mask">
-			<div class="input-group-addon" v-if="help != ''">
-				<span class="fa fa-question input-help" data-toggle="tooltip" data-original-title="" :title="help"></span>
+			<div class="input-group-addon" v-if="help != ''" data-toggle="tooltip" data-original-title="" :title="help">
+				<span class="fa fa-question input-help"></span>
 			</div>
-			<div class="input-group-addon" v-if="info != ''">
-				<span class="fa fa-info input-info" data-toggle="tooltip" data-original-title="" :title="info"></span>
+			<div class="input-group-addon" v-if="info != ''" data-toggle="tooltip" data-original-title="" :title="info">
+				<span class="fa fa-info input-info"></span>
 			</div>
 		</div>
 
@@ -122,8 +122,7 @@
 			});
 
 			if(typeof $.fn.tooltip == 'function') {
-				$(this.$refs.addon).find('.input-help').tooltip();
-				$(this.$refs.addon).find('.input-info').tooltip();
+				$(this.$refs.addon).find('.input-group-addon').tooltip();
 			}
 		}
 	};
