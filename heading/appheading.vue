@@ -17,7 +17,6 @@
 	@import '~uiStyle';
 
 	#page-heading {
-		margin-bottom: 10px;
 		position: relative;
 		background: @page-heading-bg;
 		padding-top: 20px;

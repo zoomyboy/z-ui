@@ -27,6 +27,15 @@
 				text-decoration: none;
 			}
 		}
+		&.btn-sm a {
+			padding: 2px 7px;
+			line-height: 18px;
+			height: 22px;
+			font-size: 11px;
+			&:hover {
+				text-decoration: none;
+			}
+		}
 	}
 </style>
 

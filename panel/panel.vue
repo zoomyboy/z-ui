@@ -3,6 +3,7 @@
     <div class="panel">
         <div class="panel-heading">
 			<h3 :class="['panel-title', {'smalltitle': smalltitle}]">{{ title }}</h3>
+			<slot name="action"></slot>
 			<div v-if="closeable" class="close-button" @click="$emit('close')"><span class="fa fa-close"></span></div>
         </div>
         <div ref="body" class="panel-body">
@@ -30,11 +31,11 @@
 			flex-direction: column;
 			flex: 0 0 100%;
 			.panel-heading {
-				padding: 20px;
-				flex-basis: 0;
+				height: 41px;
+    			flex: 0 0 41px;
+    			padding: 0 14px;
 				border-top-left-radius: 2px;
 				border-top-right-radius: 2px;
-				height: 50px;
 				color: #4d627b;
 				border-bottom: 1px solid rgba(0,0,0,0.1);
 				display: flex;
@@ -48,7 +49,6 @@
 				.panel-title {
 					font-weight: 600;
 					font-size: 1.2em;
-					line-height: 50px;
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;
@@ -87,7 +87,7 @@
 </style>
 
 <script>
-	const PerfectScrollbar = require('perfect-scrollbar');
+	import PerfectScrollbar from 'perfect-scrollbar';
 
 	export default {
 		data: function() {
