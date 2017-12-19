@@ -120,6 +120,9 @@
 				datepicker:true,
 				timepicker: false,
 				format:'d.m.Y',
+				scrollMonth: false,
+				scrollTime: false,
+				scrollInput: false,
 				step: vm.step,
 				onChangeDateTime: function(dp, $input) {
 					vm.curValue = $input.val();
