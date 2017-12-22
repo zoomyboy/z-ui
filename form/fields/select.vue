@@ -1,6 +1,6 @@
 <template>
 	<div class="vf-field-select-wrapper">
-		<span class="select-label">{{ label }}</span>
+		<label v-if="getOption('showLabel') && label !== false" for="">{{ label }}</label>
 		<div>
 			<select :name="name" class="vf-field-select" ref="selectField">
 				<option v-for="(cb, ind) in items" :value="ind" >{{ cb.valueprop }}</option>
@@ -91,7 +91,7 @@
 	export default {
 		props: {
 			label: {
-				default: '&nbsp;',
+				default: false,
 				required: false
 			},
 			name: {
@@ -142,6 +142,7 @@
 			getValue: function() {
 				return this.curValue;
 			},
+			getOption: require('../methods/get-form-option.js'),
 			setOptions(select) {
 				var vm = this;
 
