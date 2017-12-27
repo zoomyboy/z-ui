@@ -101,7 +101,7 @@
 	export default {
 		data: function() {
 			return  {
-
+				ps: false
 			};
 		},
 		props: {
@@ -124,7 +124,13 @@
 			}
 		},
 		mounted: function() {
-			var ps = new PerfectScrollbar(this.$refs.body);
+			var vm = this;
+
+			this.ps = new PerfectScrollbar(this.$refs.body);
+
+			this.$events.listen('update-scrollbar', function() {
+				vm.ps.update();
+			});
 		}
 	}
 </script>
