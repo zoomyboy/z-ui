@@ -81,7 +81,7 @@
     "to-case": "^2.0.0",
     "vue-events": "^3.0",
     "vue-inputmask": "^0.1.2",
-    "z-vuestrap2": "^0.0.3",
+    "z-vuestrap2": ">=0.0.6",
     "zoom-vue-session": ""
   },
   "description": "Vue User Interfaces",

@@ -6,10 +6,10 @@
 
 		<div v-if="hasAddons" class="input-group" ref="addon">
 			<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-mask="mask">
-			<div class="input-group-addon" v-if="help != ''" data-toggle="tooltip" data-original-title="" :title="help">
+			<div class="input-group-addon" v-if="help != ''" v-tooltip="help">
 				<span class="fa fa-question input-help"></span>
 			</div>
-			<div class="input-group-addon" v-if="info != ''" data-toggle="tooltip" data-original-title="" :title="info">
+			<div class="input-group-addon" v-if="info != ''" v-tooltip="info">
 				<span class="fa fa-info input-info"></span>
 			</div>
 		</div>
@@ -93,6 +93,9 @@
 			hasAddons: function() {
 				return this.help != '' || this.info != '';
 			}
+		},
+		directives: {
+			tooltip: require('z-vuestrap2/tooltip.js').default
 		},
 		data: function() {
 			return {
