@@ -34,6 +34,21 @@
 			font-size: 11px;
 			&:hover {
 				text-decoration: none;
+		&.btn-link {
+			outline: 0;
+			&:focus, &:active {
+				background: transparent;
+				border-color: transparent;
+				outline: 0;
+				a {
+					color: lighten(@primary,  20%);
+				}
+			}
+			a {
+				color: @primary;
+				padding: 2px 10px;
+				line-height: 16px;
+				height: 16px;
 			}
 		}
 	}
@@ -82,7 +97,8 @@
 			event: {
 				default: '',
 				type: String
-			}
+			},
+			cls: {}
 		},
 		methods: {
 			open: function(e) {
@@ -106,7 +122,7 @@
 				return this.icon;
 			},
 			classes: function() {
-				return ['cp-link', 'btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-group-item'];
+				return ['cp-link', 'btn', 'btn-'+this.type, 'btn-'+this.size, 'btn-group-item', this.cls];
 			},
 			hasRight: function() {
 				return this.$user == undefined || this.right == undefined || this.$user.hasRight(this.right);

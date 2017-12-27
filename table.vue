@@ -26,15 +26,17 @@
 								:target="(action.target) ? action.target : '_SELF'"
 								:route="action.route"
 								:model="row"
+								cls="btn-link"
 							></v-link>
 							<v-link
 								:route="controller+'.edit'"
 								icon="pencil"
 								:model="row"
 								v-if="editaction"
+								cls="btn-link"
 							>
 							</v-link>
-							<vf-submit  icon="trash" size="xs" name="id" :value="row.id" v-if="deleteaction"><span class="fa fa-trash"></span></vf-submit>
+							<vf-submit  icon="trash" size="xs" name="id" :value="row.id" v-if="deleteaction" cls="btn-link"><span class="fa fa-trash"></span></vf-submit>
 						</buttonbar>
 					</vf-form>
 				</td>
