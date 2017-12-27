@@ -2,7 +2,8 @@
 <div class="cp-wrap cp-panel">
     <div class="panel">
         <div class="panel-heading">
-			<h3 :class="['panel-title', {'smalltitle': smalltitle}]">{{ title }}</h3>
+			<h3 v-if="title" :class="['panel-title', {'smalltitle': smalltitle}]">{{ title }}</h3>
+			<slot name="tabs"></slot>
 			<slot name="action"></slot>
 			<div v-if="closeable" class="close-button" @click="$emit('close')"><span class="fa fa-close"></span></div>
         </div>
@@ -42,6 +43,11 @@
 				flex-direction: row;
 				justify-content: space-between;
 				align-items: center;
+				& > .tabs {
+					align-self: flex-end;
+					flex-grow: 1;
+					display: flex;
+				}
 				.close-button {
 					font-size: 20px;
 					cursor: pointer;
