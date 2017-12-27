@@ -74,6 +74,9 @@
 						background: @primary;
 					}
 				}
+				&.ps--active-y {
+					padding-right: 10px;
+				}
 				.table.table-striped {
 					margin-bottom: 0;
 					&>tbody>tr:nth-child(2n+1) {
