@@ -1,7 +1,7 @@
 <template>
 	<div class="vf-field vf-field-time form-group">
-		<label v-if="getForm().option('showLabel')" for="">{{ label }}</label>
 		<input ref="input" type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label">
+		<label v-if="getForm() ? getForm().option('showLabel') : label != false" for="">{{ label }}</label>
 		<span class="label label-danger" v-if="error !== false">{{ error }}</span>
 	</div>
 </template>
