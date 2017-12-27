@@ -14,7 +14,6 @@
 			display: inline-block;
 			font-size: 12px;
 			border-radius: 3px;
-			height: 34px;
 			vertical-align: middle;
 			&:not(:first-child) {
 				&, & > .btn {
