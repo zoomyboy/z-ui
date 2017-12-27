@@ -1,9 +1,16 @@
 <template>
-	<form :action="this.action" :method="this.method" :class="this.opts.layout" @submit.prevent="submit()" novalidate enctype="multipart/form-data" ref="form">
-		<vf-hidden name="_method" value="delete" v-if="method.toLowerCase() == 'delete'"></vf-hidden>
-		<vf-hidden name="_method" value="patch" v-if="method.toLowerCase() == 'patch'"></vf-hidden>
-		<slot></slot>
-	</form>
+	<div class="form-container">
+		<form :action="this.action" :method="this.method" :class="this.opts.layout" @submit.prevent="submit()" novalidate enctype="multipart/form-data" ref="form">
+			<vf-hidden name="_method" value="delete" v-if="method.toLowerCase() == 'delete'"></vf-hidden>
+			<vf-hidden name="_method" value="patch" v-if="method.toLowerCase() == 'patch'"></vf-hidden>
+			<slot></slot>
+
+		</form>
+
+		<form :action="this.action" :method="this.method" novalidate enctype="multipart/form-data" ref="inlineform" :target="target">
+			<input type="hidden" v-for="(field, name) in fields" :name="name" :value="field">
+		</form>
+	</div>
 </template>
 
 <style lang="sass">
@@ -75,6 +82,10 @@
 			},
 			getmodel: {
 				required: false
+			},
+			target: {
+				default: "_self",
+				type: String
 			}
 		},
 		data: function() {
@@ -85,6 +96,7 @@
 				methods: {'delete': 'post', 'post': 'post', 'get': 'get', 'patch': 'post'},
 				model: false,
 				submitConfirm: false,
+				fields: []
 			}
 		},
 		watch: {

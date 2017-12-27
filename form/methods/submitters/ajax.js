@@ -21,6 +21,9 @@ export default {
 		} else {
 			askSubmitButton(vm, data);
 		}
+	},
+	submitReal: function(vm, data) {
+		submit(vm, data);
 	}
 }
 
