@@ -77,8 +77,11 @@
 				default: false
 			},
 			url: {
-				required: true,
+				required: false,
 				type: String
+			},
+			collection: {
+				required: false,
 			},
 			controller: {
 				required: true,
@@ -146,14 +149,35 @@
 					//Handle inner action for the table
 				}
 			},
+			reload: function() {
+				var vm = this;
+
+				if (this.collection) {
+					this.data = this.collection;
+					return;
+				}
+
+				axios.get(this.url).then(function(ret) {
+					vm.data = ret.data;
+				});
+			}
+		},
+		watch: {
+			url: function(url) {
+				var vm = this;
+
+				vm.reload();
+			},
+			collection: function(url) {
+				var vm = this;
+
+				vm.reload();
 			}
 		},
 		mounted: function() {
 			var vm = this;
 
-			axios.get(this.url).then(function(ret) {
-				vm.data = ret.data;
-			});
+			this.reload();
 
 			this.$on('row-deleted', function(data) {
 				if (data.hasOwnProperty('url')) {
