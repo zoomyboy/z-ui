@@ -25,6 +25,9 @@
 			&.rows-2 {
 				grid-row: span 2;
 			}
+			&.rows-stretch {
+				grid-row: ~"1 / -1";
+			}
 		}
 	}
 </style>
