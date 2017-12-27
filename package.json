@@ -82,7 +82,8 @@
     "vue-events": "^3.0",
     "vue-inputmask": "^0.1.2",
     "z-vuestrap2": ">=0.0.6",
-    "zoom-vue-session": ""
+    "zoom-vue-session": "",
+	"accounting": "^0.4.1"
   },
   "description": "Vue User Interfaces",
   "devDependencies": {},

@@ -57,7 +57,7 @@
 </style>
 
 <script>
-	var defaultOptions = require('./table/options/options.js').default;
+	var defaultOptions = require('./options/options.js').default;
 	window.globalTableOptions = (window.globalTableOptions == undefined) ? {} : window.globalTableOptions;
 	var merge = require('merge');
 
@@ -133,13 +133,13 @@
 			},
 		},
 		methods: {
-			getData: require('./table/m_get-data.js').default,
+			getData: require('./m_get-data.js').default,
 			getTable: function() {
-				var getTable = require('./table/m_get-table.js');
+				var getTable = require('./m_get-table.js');
 				return getTable(this);
 			},
 			parse: function(value, heading) {
-				var parse = require('./table/m_parse.js').default;
+				var parse = require('./m_parse.js').default;
 				return parse(value, heading, this);
 			},
 			triggerActionEvent: function(row, action) {
