@@ -83,7 +83,7 @@
     "vue-inputmask": "^0.1.2",
     "z-vuestrap2": ">=0.0.6",
     "zoom-vue-session": "",
-	"accounting": "^0.4.1"
+    "accounting": "^0.4.1"
   },
   "description": "Vue User Interfaces",
   "devDependencies": {},
@@ -112,5 +112,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.77"
+  "version": "1.0.78"
 }
