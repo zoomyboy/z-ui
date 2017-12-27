@@ -87,6 +87,16 @@
 				submitConfirm: false,
 			}
 		},
+		watch: {
+			getmodel: function() {
+				var vm = this;
+
+				if (typeof vm.getmodel != "undefined") {
+					vm.model = vm.getmodel;
+					vm.$events.fire('model-loaded', vm);
+				}
+			}
+		},
 		computed: {
 			opts: function() {
  				let options = merge.recursive(defaultOptions(), window.globalFormOptions);
