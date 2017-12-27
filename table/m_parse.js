@@ -1,5 +1,6 @@
 var ucfirst = require('ucfirst');
 var moment = require('moment');
+var accounting = require('accounting');
 
 export default function(value, heading, vm) {
 	if (heading.type == undefined) {
@@ -71,5 +72,5 @@ function parseDate(value, vm, heading) {
 }
 
 function parseMoney(value, vm, heading) {
-	return value + '€';
+	return accounting.formatMoney(value / 100, "€", 2, ".", ",", '%v %s'); 
 }
