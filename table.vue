@@ -144,15 +144,8 @@
 					this.$emit(action.event, row, action);
 				} else if (action.action) {
 					//Handle inner action for the table
-					switch(action.action) {
-						case 'editmode':
-							this.enableEditMode(row);
-							break;
-					}
 				}
 			},
-			enableEditMode: function(row) {
-				//Todo: Enable Edit mode for row
 			}
 		},
 		mounted: function() {
