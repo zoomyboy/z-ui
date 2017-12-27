@@ -25,13 +25,13 @@
 								:icon="action.icon"
 								:target="(action.target) ? action.target : '_SELF'"
 								:route="action.route"
-								:model="row"
+								:params="{id: row.id}"
 								cls="btn-link"
 							></v-link>
 							<v-link
 								:route="controller+'.edit'"
 								icon="pencil"
-								:model="row"
+								:params="{id: row.id}"
 								v-if="editaction"
 								cls="btn-link"
 							>
