@@ -1,5 +1,5 @@
 <template>
-	<div class="vf-field-select-wrapper">
+	<div :class="['vf-field-select-wrapper', 'size-'+size]">
 		<label v-if="getOption('showLabel') && label !== false" for="">{{ label }}</label>
 		<div>
 			<select :name="name" class="vf-field-select" ref="selectField">
@@ -17,6 +17,18 @@
 	@import "~uiStyle";
 
 	.vf-field-select-wrapper {
+		&.size-sm {
+			span.selection .select2-selection--single {
+				height: 30px;
+    			padding: 2px 10px;
+			}
+			.select2-selection__rendered {
+				line-height: 24px !important;
+			}
+			.select2-selection__arrow {
+				height: 30px !important;
+			}
+		}
 		margin-bottom: 15px;
 		.select-label {
 			font-weight: bold;
@@ -137,6 +149,10 @@
 				type: String,
 				required: false
 			},
+			size: {
+				default: 'md',
+				type: String
+			}
 		},
 		methods: {
 			getValue: function() {

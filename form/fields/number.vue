@@ -2,7 +2,7 @@
 	<div class="vf-field vf-field-number form-group">
 		<label v-if="getForm() ? getForm().option('showLabel') : label != false" for="">{{ label }}</label>
 
-		<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-if="!hasAddons" v-mask="mask">
+		<input type="text" :class="classes" v-model="curValue" :placeholder="label" v-if="!hasAddons" v-mask="mask">
 
 		<div v-if="hasAddons" class="input-group" ref="addon">
 			<input type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label" v-mask="mask">
@@ -86,6 +86,9 @@
 		computed: {
 			hasAddons: function() {
 				return this.help != '' || this.info != '';
+			},
+			classes: function() {
+				return [this.getForm() ? this.getForm().option('fieldClass') : 'form-control', 'size-'+this.size];
 			}
 		},
 		data: function() {

@@ -1,7 +1,7 @@
 <template>
 	<div class="vf-field vf-field-time form-group">
-		<input ref="input" type="text" :class="getForm().option('fieldClass')" v-model="curValue" :placeholder="label">
 		<label v-if="getForm() ? getForm().option('showLabel') : label != false" for="">{{ label }}</label>
+		<input ref="input" type="text" :class="classes" v-model="curValue" :placeholder="label">
 		<span class="label label-danger" v-if="error !== false">{{ error }}</span>
 	</div>
 </template>
@@ -12,6 +12,10 @@
 		input {
 			.field-focus(@field-focus);
 			height: @field-height;
+			&.size-sm {
+				height: 30px;
+    			padding: 4px 10px;
+			}
 		}
 	}
 </style>
@@ -39,6 +43,10 @@
 				default: 30,
 				required: false,
 				type: Number
+			},
+			size: {
+				default: 'md',
+				type: String
 			}
 		},
 		methods: {
@@ -49,6 +57,11 @@
 				this.curValue = newVal;
 			},
 			getForm: require('../methods/get-form.js')
+		},
+		computed: {
+			classes: function() {
+				return [this.getForm() ? this.getForm().option('fieldClass') : 'form-control', 'size-'+this.size];
+			}
 		},
 		watch: {
 			value: function(newVal) {

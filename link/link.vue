@@ -32,13 +32,6 @@
 				text-decoration: none;
 			}
 		}
-		&.btn-sm a {
-			padding: 2px 7px;
-			line-height: 18px;
-			height: 22px;
-			font-size: 11px;
-			&:hover {
-				text-decoration: none;
 		&.btn-link {
 			outline: 0;
 			&:focus, &:active {
@@ -54,6 +47,18 @@
 				padding: 2px 10px;
 				line-height: 16px;
 				height: 16px;
+			}
+		}
+		&.btn-sm {
+			height: 24px;
+			a {
+				padding: 2px 7px;
+				line-height: 18px;
+				height: 22px;
+				font-size: 11px;
+				&:hover {
+					text-decoration: none;
+				}
 			}
 		}
 	}
