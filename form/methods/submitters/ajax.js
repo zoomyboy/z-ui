@@ -15,9 +15,11 @@ export default {
 				confirmButtonClass: 'btn btn-success no-right-border-radius',
 				cancelButtonClass: 'btn btn-danger no-left-border-radius',
 				buttonsStyling: false
-			}).then(function () {
-				askSubmitButton(vm, data);
-			}, function (dismiss) { });
+			}).then(function (result) {
+				if (result.value != undefined && result.value == true) {
+					askSubmitButton(vm, data);
+				}
+			});
 		} else {
 			askSubmitButton(vm, data);
 		}
