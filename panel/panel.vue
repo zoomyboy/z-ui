@@ -121,16 +121,22 @@
 			loading: {
 				type: Boolean,
 				default: false
+			},
+			scrollbar: {
+				default: true,
+				type: Boolean
 			}
 		},
 		mounted: function() {
 			var vm = this;
 
-			this.ps = new PerfectScrollbar(this.$refs.body);
+			if (this.scrollbar) {
+				this.ps = new PerfectScrollbar(this.$refs.body);
 
-			this.$events.listen('update-scrollbar', function() {
-				vm.ps.update();
-			});
+				this.$events.listen('update-scrollbar', function() {
+					vm.ps.update();
+				});
+			}
 		}
 	}
 </script>
